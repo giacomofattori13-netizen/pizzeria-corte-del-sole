@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Ristorante Pizzeria Corte del Sole - Costeggiola (VR). Pizze artigianali, impasti fatti in casa, senza glutine. Via Costeggiola 38.">
+<title>Corte del Sole – Pizzeria Ristorante · Costeggiola (VR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   VARIABILI & RESET
+   ============================================= */
+:root {
+  --amber:       #C07A10;
+  --amber-soft:  #EBD5A0;
+  --amber-bg:    #FAF0DE;
+  --ember:       #C04515;
+  --soil:        #180E04;
+  --soil-mid:    #221204;
+  --cream:       #FAF3E8;
+  --ivory:       #F4EBDA;
+  --stone:       #BCB0A0;
+  --olive:       #3A5028;
+  --terracotta:  #A83C28;
+  --copper:      #906015;
+  --text:        #1A100A;
+  --text-mid:    #4A3828;
+  --text-muted:  #7A6050;
+  --white:       #FFFFFF;
+
+  --serif:  'Playfair Display', Georgia, serif;
+  --body:   'Jost', system-ui, sans-serif;
+
+  --r-sm:  6px;
+  --r-md:  14px;
+  --r-lg:  26px;
+
+  --shadow-warm:  0 8px 48px rgba(24,14,4,.12);
+  --shadow-amber: 0 8px 32px rgba(192,122,16,.38);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--body);
+  background: var(--cream);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--soil); }
+::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 3px; }
+
+/* =============================================
+   TIPOGRAFIA
+   ============================================= */
+h1, h2, h3, h4 { font-family: var(--serif); line-height: 1.08; }
+
+.gold {
+  background: linear-gradient(135deg, #A07010 0%, #D4A020 40%, #A87808 70%, #CC9018 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =============================================
+   NAV
+   ============================================= */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.5rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: all .5s cubic-bezier(.25,.46,.45,.94);
+}
+nav.scrolled {
+  padding: 0.9rem 3rem;
+  background: rgba(250,244,234,.97);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(24,14,4,.06), 0 4px 24px rgba(24,14,4,.05);
+}
+
+.nav-logo {
+  text-decoration: none;
+  display: flex; align-items: center;
+  flex-shrink: 0;
+}
+.nav-logo img {
+  height: 52px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  transition: height .5s cubic-bezier(.25,.46,.45,.94), filter .5s, opacity .3s;
+}
+nav.scrolled .nav-logo img {
+  height: 40px;
+  filter: none;
+}
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-size: .78rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255,255,255,.75);
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a:not(.btn-nav)::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 0; right: 0;
+  height: 1px; background: var(--amber);
+  transform: scaleX(0); transform-origin: center;
+  transition: transform .3s ease;
+}
+.nav-links a:not(.btn-nav):hover::after { transform: scaleX(1); }
+.nav-links a:not(.btn-nav):hover { color: var(--amber) !important; }
+nav.scrolled .nav-links a { color: var(--text-muted); }
+nav.scrolled .nav-links a:not(.btn-nav):hover { color: var(--amber) !important; }
+
+.btn-nav {
+  background: linear-gradient(135deg, #B47010, #C98818) !important;
+  color: var(--white) !important;
+  padding: .6rem 1.6rem;
+  border-radius: 2rem;
+  font-weight: 600 !important;
+  letter-spacing: .06em;
+  transition: transform .2s, box-shadow .2s !important;
+  box-shadow: 0 3px 14px rgba(192,122,16,.35);
+}
+.btn-nav:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-amber) !important;
+}
+.btn-nav::after { display: none !important; }
+
+.hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; background: none; border: none;
+  padding: 4px; z-index: 1002; position: relative;
+}
+.hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: white; border-radius: 2px;
+  transition: all .3s ease;
+}
+nav.scrolled .hamburger span { background: var(--soil); }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--amber) !important; }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--amber) !important; }
+
+/* =============================================
+   HERO
+   ============================================= */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: -12% -5%;
+  will-change: transform;
+}
+.hero-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center center;
+  display: block;
+  filter: brightness(.45);
+}
+
+.hero-glow-a {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 60% at 70% 35%, rgba(192,122,16,.2) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(196,80,24,.12) 0%, transparent 60%);
+  will-change: transform;
+  animation: pulse-a 7s ease-in-out infinite;
+}
+.hero-glow-b {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 35% 35% at 85% 75%, rgba(184,68,48,.1) 0%, transparent 70%);
+  will-change: transform;
+  animation: pulse-b 10s ease-in-out infinite;
+}
+@keyframes pulse-a { 0%,100%{opacity:.7} 50%{opacity:1} }
+@keyframes pulse-b { 0%,100%{opacity:.5} 50%{opacity:.9} }
+
+.hero-grain {
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: .032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+.embers { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.ember {
+  position: absolute; border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 6px 2px rgba(192,122,16,.5);
+  animation: rise linear infinite;
+  opacity: 0;
+}
+@keyframes rise {
+  0%   { transform: translateY(110vh) translateX(0) scale(1); opacity: 0; }
+  8%   { opacity: .7; }
+  50%  { transform: translateY(50vh) translateX(35px) scale(.7); opacity: .4; }
+  90%  { opacity: .08; }
+  100% { transform: translateY(-10vh) translateX(-20px) scale(.2); opacity: 0; }
+}
+
+.hero-content {
+  position: relative; z-index: 10;
+  padding: 10rem 5rem 7rem;
+  max-width: 820px;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: .7rem;
+  margin-bottom: 2.2rem;
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--amber); font-weight: 500;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block;
+  width: 28px; height: 1px;
+  background: var(--amber); opacity: .5;
+}
+
+.hero h1 {
+  font-size: clamp(3.4rem, 7vw, 6.5rem);
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.04;
+  margin-bottom: 1.8rem;
+  letter-spacing: -.01em;
+}
+.hero h1 em {
+  font-style: italic; display: block;
+  background: linear-gradient(135deg, #A07010 0%, #D8A020 42%, #A87808 68%, #CC9018 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.95);
+  line-height: 1.8; max-width: 500px;
+  font-weight: 300; margin-bottom: 3rem;
+  letter-spacing: .01em;
+  text-shadow: 0 1px 3px rgba(0,0,0,.6);
+}
+
+.hero-ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+
+.btn-primary {
+  background: linear-gradient(135deg, #B47010, #C98818);
+  color: var(--white);
+  padding: 1rem 2.5rem;
+  border-radius: 3rem;
+  font-size: .83rem; font-weight: 600;
+  text-decoration: none; letter-spacing: .07em; text-transform: uppercase;
+  display: inline-block;
+  transition: all .3s ease;
+  box-shadow: 0 4px 22px rgba(192,122,16,.4);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 36px rgba(192,122,16,.6);
+  background: linear-gradient(135deg, #C48018, #DA9820);
+}
+
+.btn-outline {
+  border: 1px solid rgba(255,255,255,.22);
+  color: rgba(255,255,255,.82);
+  padding: 1rem 2.5rem;
+  border-radius: 3rem;
+  font-size: .83rem; font-weight: 400;
+  text-decoration: none; letter-spacing: .07em; text-transform: uppercase;
+  display: inline-block;
+  transition: all .3s ease;
+  backdrop-filter: blur(8px);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.45);
+  transform: translateY(-2px);
+}
+
+.scroll-hint {
+  position: absolute; bottom: 2.8rem; left: 5rem;
+  display: flex; align-items: center; gap: 1rem;
+  color: rgba(255,255,255,.28);
+  font-size: .66rem; letter-spacing: .18em; text-transform: uppercase;
+}
+.scroll-track {
+  width: 40px; height: 1px;
+  background: rgba(255,255,255,.15); position: relative; overflow: hidden;
+}
+.scroll-track::after {
+  content: '';
+  position: absolute; top:0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--amber);
+  animation: track-anim 2s ease-in-out infinite;
+}
+@keyframes track-anim { 0%{left:-100%} 100%{left:100%} }
+
+/* =============================================
+   SEZIONI COMUNI
+   ============================================= */
+section { padding: 7rem 2rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--amber); font-weight: 600;
+  display: flex; align-items: center; gap: .8rem;
+  margin-bottom: .9rem;
+}
+.section-label::before {
+  content: ''; display: block;
+  width: 18px; height: 1px; background: var(--amber);
+}
+
+h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 400; line-height: 1.1;
+  color: var(--soil); margin-bottom: 1.4rem;
+  letter-spacing: -.01em;
+}
+h2 em { font-style: italic; color: var(--terracotta); }
+
+.lead {
+  font-size: 1.04rem; color: var(--text-muted);
+  line-height: 1.85; max-width: 560px;
+  font-weight: 300;
+}
+
+/* Ornamento */
+.ornament {
+  display: flex; align-items: center;
+  justify-content: center; gap: 1.5rem;
+  padding: 1rem 0;
+}
+.orn-line {
+  flex: 1; max-width: 220px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(192,122,16,.3), transparent);
+}
+.orn-icon {
+  color: var(--amber); font-size: .85rem;
+  opacity: .55; letter-spacing: .35em;
+}
+
+/* =============================================
+   IMPASTI
+   ============================================= */
+.impasti-section {
+  background: var(--soil); position: relative; overflow: hidden;
+}
+.impasti-section::before {
+  content: '';
+  position: absolute; top: -220px; right: -180px;
+  width: 620px; height: 620px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,122,16,.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.impasti-section h2 { color: var(--white); }
+.impasti-section .lead { color: rgba(255,255,255,.42); }
+.impasti-header { margin-bottom: 4.5rem; }
+
+.impasti-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgba(255,255,255,.055);
+}
+
+.impasto-card {
+  padding: 3rem 2.5rem 3.5rem;
+  border-right: 1px solid rgba(255,255,255,.055);
+  position: relative; overflow: hidden;
+  transition: background .4s;
+  cursor: default;
+}
+.impasto-card:nth-child(3n) { border-right: none; }
+.impasto-card:nth-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,.055); }
+.impasto-card:hover { background: rgba(255,255,255,.035); }
+
+.impasto-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--amber), var(--ember));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+}
+.impasto-card:hover::after { transform: scaleX(1); }
+
+.impasto-num {
+  font-family: var(--serif);
+  font-size: 4rem; font-weight: 700;
+  color: rgba(255,255,255,.04);
+  line-height: 1; margin-bottom: 1.2rem;
+  display: block;
+  transition: color .4s;
+}
+.impasto-card:hover .impasto-num { color: rgba(192,122,16,.1); }
+
+.impasto-icon { font-size: 1.7rem; margin-bottom: 1rem; display: block; }
+
+.impasto-card h3 {
+  font-family: var(--serif);
+  font-size: 1.35rem; font-weight: 600;
+  color: var(--white); margin-bottom: .7rem;
+  letter-spacing: -.01em;
+}
+.impasto-card p {
+  font-size: .86rem; color: rgba(255,255,255,.38);
+  line-height: 1.7; font-weight: 300;
+}
+.impasto-footer {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  margin-top: 1.4rem;
+}
+.impasto-tag {
+  display: inline-block;
+  font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--amber); border: 1px solid rgba(192,122,16,.22);
+  padding: .28rem .75rem; border-radius: 2rem; font-weight: 500;
+}
+.impasto-surcharge {
+  font-size: .62rem; letter-spacing: .08em; font-weight: 600;
+  color: var(--amber); opacity: .65;
+}
+/* =============================================
+   CHI SIAMO
+   ============================================= */
+.chisiamo-section { background: var(--cream); }
+
+.chisiamo-grid {
+  display: block;
+}
+.chisiamo-text h2 { margin-bottom: 1.5rem; }
+.chisiamo-text > p {
+  color: var(--text-mid); line-height: 1.9;
+  font-weight: 300; margin-bottom: .9rem; font-size: .97rem;
+}
+
+.pull-quote {
+  font-family: var(--serif);
+  font-size: 1.25rem; font-style: italic;
+  color: var(--terracotta); line-height: 1.55;
+  padding: 1.4rem 0 1.4rem 1.5rem;
+  border-left: 2px solid var(--amber);
+  margin: 1.8rem 0 2rem;
+  font-weight: 400;
+}
+
+.features-list {
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 1px solid rgba(24,14,4,.08);
+}
+.feature-item {
+  display: flex; align-items: flex-start; gap: 1.2rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(24,14,4,.06);
+}
+.f-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .15rem; width: 2rem; text-align: center; }
+.feature-item strong { display: block; color: var(--soil); font-size: .92rem; font-weight: 500; margin-bottom: .15rem; }
+.feature-item span { font-size: .82rem; color: var(--text-muted); font-weight: 300; }
+
+.chisiamo-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 200px 195px;
+  gap: 12px;
+}
+.visual-card {
+  border-radius: var(--r-md);
+  overflow: hidden; position: relative;
+}
+.visual-card.full { grid-column: span 2; }
+.visual-fill {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: .5rem;
+  transition: transform .55s ease;
+}
+.visual-card:hover .visual-fill { transform: scale(1.05); }
+.visual-fill .big { font-size: 2.8rem; }
+.visual-fill .cap {
+  font-size: .68rem; text-transform: uppercase;
+  letter-spacing: .12em; font-weight: 500; opacity: .6;
+  color: #FAF4EA;
+}
+
+/* =============================================
+   MENU
+   ============================================= */
+.menu-section {
+  background: var(--ivory);
+  position: relative;
+}
+.menu-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(192,122,16,.28), transparent);
+}
+
+.menu-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem;
+}
+
+.menu-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  background: var(--white);
+  border: 1px solid rgba(24,14,4,.07);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-warm);
+}
+.menu-cat {
+  padding: 2.5rem;
+  border-right: 1px solid rgba(24,14,4,.06);
+}
+.menu-cat:last-child { border-right: none; }
+
+.cat-head {
+  display: flex; align-items: center; gap: .9rem;
+  margin-bottom: 2rem; padding-bottom: 1.4rem;
+  border-bottom: 1px solid rgba(24,14,4,.06);
+}
+.cat-ico { font-size: 1.4rem; }
+.cat-name {
+  font-family: var(--serif);
+  font-size: 1.45rem; font-weight: 600;
+  color: var(--soil); letter-spacing: -.01em;
+}
+
+.mi {
+  display: flex; align-items: baseline; gap: .4rem;
+  padding: .7rem 0;
+  border-bottom: 1px solid rgba(24,14,4,.045);
+}
+.mi:last-of-type { border-bottom: none; }
+.mi-info { flex: none; }
+.mi-name { font-size: .89rem; color: var(--text); font-weight: 500; }
+.mi-desc { font-size: .76rem; color: var(--text-muted); margin-top: .08rem; font-weight: 300; }
+.mi-dots {
+  flex: 1; border-bottom: 1px dotted rgba(24,14,4,.15);
+  margin-bottom: 4px; min-width: 16px;
+}
+.mi-price {
+  font-size: .87rem; color: var(--terracotta);
+  font-weight: 500; white-space: nowrap;
+  font-family: var(--serif);
+}
+
+.mi.special {
+  padding: .7rem .5rem;
+  background: linear-gradient(to right, rgba(192,122,16,.07), transparent);
+  border-radius: var(--r-sm);
+  margin: 0 -.5rem;
+  border-bottom-color: transparent;
+}
+.mi.special .mi-name { font-weight: 600; color: var(--soil); }
+.mi.special .mi-name::after { content: ' ✦'; color: var(--amber); font-size: .65rem; }
+
+/* =============================================
+   GALLERIA
+   ============================================= */
+.gallery-section { background: var(--soil); }
+.gallery-section .section-label { color: var(--amber); }
+.gallery-section h2 { color: var(--white); margin-bottom: 3.5rem; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 290px 290px;
+  gap: 12px;
+}
+.gallery-grid .g-item:nth-child(1) { grid-column: span 2; }
+.gallery-grid .g-item:nth-child(4) { grid-column: span 2; }
+
+.g-item {
+  position: relative; border-radius: var(--r-md);
+  overflow: hidden; cursor: pointer;
+}
+.g-fill {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .65s cubic-bezier(.25,.46,.45,.94);
+}
+.g-item:hover .g-fill { transform: scale(1.06); }
+.g-ico { font-size: 3.2rem; opacity: .45; }
+
+.g-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(24,14,4,.92) 0%, transparent 55%);
+  opacity: 0; transition: opacity .4s;
+  display: flex; align-items: flex-end;
+  padding: 1.5rem 1.8rem;
+}
+.g-item:hover .g-overlay { opacity: 1; }
+.g-caption { display: none; }
+.g-item:hover .g-caption { transform: translateY(0); }
+
+/* =============================================
+   TERRAZZA
+   ============================================= */
+.terrazza-section { background: var(--soil-mid); position: relative; overflow: hidden; min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
+.terrazza-section::after {
+  content: '';
+  position: absolute; bottom: -120px; right: -120px;
+  width: 560px; height: 560px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(192,122,16,.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.terrazza-inner {
+  position: relative; z-index: 2;
+  max-width: 800px;
+}
+.terrazza-text h2 { color: var(--white); margin-bottom: 1.4rem; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+.terrazza-text .lead { color: rgba(255,255,255,.95); margin-bottom: 3rem; text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+.terrazza-text .section-label { text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+
+/* Carosello terrazza — sfondo */
+.t-bg-slide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity .9s ease;
+  z-index: 0;
+}
+.t-bg-slide.active { opacity: 1; }
+.t-bg-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  image-orientation: from-image;
+  display: block;
+}
+.t-overlay {
+  position: absolute; inset: 0;
+  background: rgba(12,8,4,.65);
+  z-index: 1;
+  pointer-events: none;
+}
+.terrazza-section .section-inner { position: relative; z-index: 2; }
+.t-dots {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; gap: .6rem;
+}
+.t-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.28);
+  cursor: pointer;
+  transition: background .25s, transform .25s;
+  border: none; padding: 0;
+}
+.t-dot.active { background: var(--amber); transform: scale(1.3); }
+
+.stats-col { display: flex; flex-direction: column; gap: 2.2rem; }
+.stat {
+  padding-left: 1.6rem;
+  border-left: 1px solid rgba(192,122,16,.28);
+}
+.stat-num {
+  font-family: var(--serif);
+  font-size: 3rem; font-weight: 700;
+  background: linear-gradient(135deg, #A07010, #D8A020);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  line-height: 1;
+}
+.stat-lbl {
+  font-size: .76rem; color: rgba(255,255,255,.38);
+  text-transform: uppercase; letter-spacing: .1em; margin-top: .2rem;
+}
+
+/* =============================================
+   RECENSIONI
+   ============================================= */
+.recensioni-section { background: var(--amber-bg); }
+.recensioni-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 4rem;
+}
+
+.rev-card {
+  background: var(--white); border-radius: var(--r-lg);
+  padding: 2.5rem;
+  position: relative; overflow: hidden;
+  border: 1px solid rgba(192,122,16,.09);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.rev-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 55px rgba(24,14,4,.12);
+}
+.rev-card::before {
+  content: '"';
+  position: absolute; top: 1rem; right: 2rem;
+  font-family: var(--serif); font-size: 7rem; line-height: .8;
+  color: var(--amber); opacity: .1; font-weight: 700;
+  pointer-events: none;
+}
+
+.stars { display: flex; gap: 3px; margin-bottom: 1.2rem; }
+.star {
+  width: 14px; height: 14px; background: var(--amber);
+  clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+}
+.star.e { background: rgba(192,122,16,.18); }
+
+.rev-card blockquote {
+  font-family: var(--serif);
+  font-size: 1.04rem; color: var(--soil);
+  line-height: 1.65; font-style: italic;
+  margin-bottom: 1.4rem; font-weight: 400;
+  border: none; padding: 0;
+}
+.rev-who { font-size: .77rem; color: var(--text-muted); font-weight: 500; }
+.rev-src { font-size: .66rem; color: var(--amber); text-transform: uppercase; letter-spacing: .1em; margin-top: .15rem; font-weight: 500; }
+
+.ta-link {
+  display: inline-flex; align-items: center; gap: .6rem;
+  margin-top: 3rem;
+  background: #fff; color: var(--soil);
+  font-size: .75rem; font-weight: 500;
+  padding: .65rem 1.3rem; border-radius: 2rem;
+  border: 1.5px solid #d0d0d0;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.ta-link:hover { transform: scale(1.03); box-shadow: 0 6px 20px rgba(0,0,0,.12); }
+
+.rev-extra {
+  display: block;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
+.rev-extra.expanded { max-height: 500px; }
+.rev-toggle {
+  display: inline-block;
+  margin-top: .5rem;
+  font-size: .78rem; font-weight: 600;
+  color: var(--amber);
+  background: none; border: none; padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-family: var(--sans);
+}
+.rev-toggle:hover { color: var(--soil); }
+
+/* =============================================
+   CONTATTI
+   ============================================= */
+.contatti-section { background: var(--white); }
+
+.contatti-grid {
+  display: grid; grid-template-columns: 1fr 1.5fr;
+  gap: 6rem; align-items: start; margin-top: 3.5rem;
+}
+
+.info-block { margin-bottom: 2.3rem; }
+.info-block h3 {
+  font-size: .63rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--copper); font-weight: 600;
+  margin-bottom: .9rem; padding-bottom: .55rem;
+  border-bottom: 1px solid rgba(24,14,4,.07);
+}
+.info-row {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: .65rem;
+}
+.i-ico { font-size: 1rem; width: 22px; text-align: center; flex-shrink: 0; }
+.info-row a {
+  color: var(--text); text-decoration: none;
+  font-size: .93rem; font-weight: 400;
+  transition: color .2s;
+}
+.info-row a:hover { color: var(--amber); }
+
+.orari-tbl { width: 100%; border-collapse: collapse; }
+.orari-tbl tr { border-bottom: 1px solid rgba(24,14,4,.05); }
+.orari-tbl tr:last-child { border-bottom: none; }
+.orari-tbl td { padding: .55rem 0; font-size: .87rem; }
+.orari-tbl td:first-child { color: var(--text-muted); width: 130px; }
+.orari-tbl td:last-child { color: var(--text); }
+.orari-tbl tr.closed td { color: rgba(24,14,4,.28); text-decoration: line-through; }
+.orari-tbl tr.oggi td { color: var(--olive); font-weight: 600; }
+
+.oggi-badge {
+  display: inline-block;
+  background: var(--olive); color: white;
+  font-size: .52rem; font-weight: 600;
+  padding: .12rem .45rem; border-radius: 4px;
+  vertical-align: middle; margin-left: .5rem;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+
+.map-box {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid rgba(24,14,4,.07);
+  box-shadow: var(--shadow-warm);
+  aspect-ratio: 4/3;
+}
+.map-box iframe { width: 100%; height: 100%; border: none; display: block; }
+
+.cta-row {
+  display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.4rem;
+}
+.btn-wa {
+  background: linear-gradient(135deg, #1DA851, #25D366) !important;
+  box-shadow: 0 4px 20px rgba(37,211,102,.28) !important;
+}
+
+/* =============================================
+   FOOTER
+   ============================================= */
+footer { background: var(--soil); color: rgba(255,255,255,.42); }
+
+.footer-map { height: 280px; position: relative; overflow: hidden; }
+.footer-map iframe { width: 100%; height: 100%; border: none; display: block; filter: saturate(.4) brightness(.55) contrast(1.1); transition: filter .4s; }
+.footer-map:hover iframe { filter: saturate(.7) brightness(.75) contrast(1.05); }
+.footer-map-vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, var(--soil) 0%, transparent 35%, transparent 65%, var(--soil) 100%);
+}
+
+.footer-body { padding: 4.5rem 2rem; max-width: 1200px; margin: 0 auto; }
+.footer-top {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 4rem; margin-bottom: 3rem; padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.footer-logo-img {
+  height: 72px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  opacity: .88;
+  margin-bottom: 1rem;
+}
+.footer-brand p { font-size: .83rem; line-height: 1.6; }
+.footer-brand .tagline { margin-top: 1rem; font-size: .78rem; line-height: 1.75; max-width: 300px; opacity: .5; }
+
+.f-col h4 {
+  font-size: .63rem; letter-spacing: .15em; text-transform: uppercase;
+  color: var(--amber); font-weight: 600; margin-bottom: 1.3rem;
+  font-family: var(--body);
+}
+.f-col ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+.f-col a {
+  color: rgba(255,255,255,.38); text-decoration: none;
+  font-size: .87rem; transition: color .2s;
+}
+.f-col a:hover { color: var(--amber); }
+
+.social-list { display: flex; flex-direction: column; gap: .65rem; }
+.soc-item {
+  display: flex; align-items: center; gap: .6rem;
+  color: rgba(255,255,255,.38); text-decoration: none;
+  font-size: .87rem; transition: color .2s;
+}
+.soc-item:hover { color: var(--amber); }
+.soc-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+.footer-bottom {
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+  font-size: .76rem;
+}
+
+/* =============================================
+   ANIMAZIONI SCROLL
+   ============================================= */
+.reveal {
+  opacity: 0;
+  transition: opacity .8s ease, transform .8s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.up    { transform: translateY(28px); }
+.reveal.left  { transform: translateX(-28px); }
+.reveal.right { transform: translateX(28px); }
+.reveal.zoom  { transform: scale(.96); }
+.reveal.vis { opacity: 1; transform: none !important; }
+
+.d1 { transition-delay: .1s; }
+.d2 { transition-delay: .2s; }
+.d3 { transition-delay: .3s; }
+.d4 { transition-delay: .4s; }
+.d5 { transition-delay: .5s; }
+
+nav { top: 0; }
+
+/* =============================================
+   PROGRESS BAR SCROLL
+   ============================================= */
+#prog {
+  position: fixed; top: 0; left: 0; z-index: 2000;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--amber), var(--ember));
+  pointer-events: none;
+  transition: width .06s linear;
+}
+
+/* =============================================
+   HERO SEAL
+   ============================================= */
+.hero-seal {
+  position: absolute; right: 7%; top: 50%;
+  width: 230px; height: 230px;
+  opacity: 0;
+  animation: seal-in 1.8s ease .8s forwards, seal-spin 38s linear 2.6s infinite;
+  pointer-events: none;
+  will-change: transform;
+  display: flex; align-items: center; justify-content: center;
+}
+@keyframes seal-in { to { opacity: .62; } }
+@keyframes seal-spin {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to   { transform: translateY(-50%) rotate(360deg); }
+}
+.hero-seal { transform: translateY(-50%) rotate(0deg); }
+.hero-seal svg { width: 100%; height: 100%; display: block; }
+
+/* =============================================
+   MENU TABS
+   ============================================= */
+.menu-tabs {
+  display: flex; gap: .4rem;
+  background: var(--white);
+  border: 1px solid rgba(24,14,4,.08);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: .5rem;
+  box-shadow: 0 -4px 0 0 rgba(192,122,16,.04);
+}
+.menu-tab {
+  flex: 1; padding: .8rem 1rem;
+  border: none; background: transparent;
+  font-family: var(--serif); font-size: 1rem; font-weight: 600;
+  color: var(--text-muted); cursor: pointer;
+  border-radius: var(--r-md);
+  transition: all .3s ease;
+  letter-spacing: -.01em;
+}
+.menu-tab.active {
+  background: var(--soil); color: var(--white);
+  box-shadow: 0 3px 14px rgba(24,14,4,.22);
+}
+.menu-tab:hover:not(.active) { background: rgba(24,14,4,.05); color: var(--soil); }
+
+.menu-panels {
+  background: var(--white);
+  border: 1px solid rgba(24,14,4,.07); border-top: none;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  overflow: hidden; box-shadow: var(--shadow-warm);
+}
+.menu-panel {
+  display: none;
+  padding: 2.5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: .1rem 5rem;
+  align-items: start;
+  opacity: 0; transition: opacity .35s ease;
+}
+.menu-panel.active { display: grid; opacity: 1; }
+.panel-head {
+  grid-column: span 2;
+  display: flex; align-items: center; gap: .9rem;
+  padding-bottom: 1.5rem; margin-bottom: .8rem;
+  border-bottom: 1px solid rgba(24,14,4,.07);
+}
+.panel-head h3 {
+  font-family: var(--serif);
+  font-size: 1.55rem; font-weight: 600; color: var(--soil);
+  letter-spacing: -.01em;
+}
+.panel-ico { font-size: 1.5rem; }
+
+/* =============================================
+   STATUS APERTO/CHIUSO
+   ============================================= */
+.status-badge {
+  display: inline-flex; align-items: center; gap: .45rem;
+  font-size: .64rem; font-weight: 600;
+  padding: .28rem .8rem; border-radius: 2rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  margin-top: .9rem;
+}
+.status-open { background: rgba(58,80,40,.1); color: var(--olive); border: 1px solid rgba(58,80,40,.2); }
+.status-closed { background: rgba(176,68,48,.08); color: var(--terracotta); border: 1px solid rgba(176,68,48,.18); }
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+@keyframes dot-pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+/* =============================================
+   FLOATING BUTTONS
+   ============================================= */
+.fab-group {
+  position: fixed; bottom: 2rem; right: 1.8rem;
+  display: flex; flex-direction: column; gap: .6rem;
+  z-index: 800;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .4s, transform .4s;
+  pointer-events: none;
+}
+.fab-group.show { opacity: 1; transform: none; pointer-events: auto; }
+.fab {
+  width: 50px; height: 50px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-size: 1.25rem;
+  box-shadow: 0 4px 18px rgba(24,14,4,.28);
+  border: none; cursor: pointer;
+  transition: transform .25s, box-shadow .25s;
+}
+.fab:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(24,14,4,.35); }
+.fab-wa { background: #25D366; }
+.fab-top { background: var(--soil); color: rgba(255,255,255,.65); font-size: .9rem; line-height:1; }
+
+/* =============================================
+   MOBILE
+   ============================================= */
+@media (max-width: 960px) {
+  nav { padding: 1.2rem 1.5rem; top: 0; }
+  nav.scrolled { padding: .9rem 1.5rem; top: 0; }
+  .hero-seal { display: none; }
+  .menu-panel.active { grid-template-columns: 1fr; }
+  .panel-head { grid-column: span 1; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex; flex-direction: column;
+    position: fixed; inset: 0;
+    background: rgba(24,14,4,.97);
+    backdrop-filter: blur(24px);
+    justify-content: center; align-items: center;
+    z-index: 1001; gap: 2.5rem;
+  }
+  .nav-links.open a { font-size: 1.1rem; color: rgba(255,255,255,.72) !important; }
+  .hamburger { display: flex; }
+  .hero-content { padding: 8rem 1.5rem 5rem; }
+  .scroll-hint { left: 1.5rem; }
+  .impasti-grid { grid-template-columns: repeat(2, 1fr); }
+  .impasto-card { border-bottom: 1px solid rgba(255,255,255,.055); border-right: 1px solid rgba(255,255,255,.055); }
+  .impasto-card:nth-child(3n) { border-right: 1px solid rgba(255,255,255,.055); }
+  .impasto-card:nth-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,.055); }
+  .impasto-card:nth-child(2n) { border-right: none; }
+  .impasto-card:nth-child(5), .impasto-card:nth-child(6) { border-bottom: none; }
+  .chisiamo-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .chisiamo-visual { display: none; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .menu-cat { border-right: none; border-bottom: 1px solid rgba(24,14,4,.06); }
+  .menu-cat:last-child { border-bottom: none; }
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 200px);
+  }
+  .gallery-grid .g-item:nth-child(1),
+  .gallery-grid .g-item:nth-child(4) { grid-column: span 2; }
+  .terrazza-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .stats-col { flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+  .stat { flex: 1; min-width: 130px; }
+  .recensioni-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+  .contatti-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: span 2; }
+  section { padding: 5rem 1.5rem; }
+}
+
+@media (max-width: 520px) {
+  /* Hero */
+  .hero h1 { font-size: 2.4rem; }
+  .hero-content { padding: 6rem 1.2rem 4rem; }
+  .hero-sub { font-size: .95rem; }
+  .hero-ctas { flex-direction: column; }
+  .btn-primary, .btn-outline { text-align: center; }
+
+  /* Impasti */
+  .impasti-grid { grid-template-columns: 1fr; }
+  .impasto-card { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,.055) !important; }
+  .impasto-card:last-child { border-bottom: none !important; }
+
+  /* Gallery */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 180px);
+  }
+  .gallery-grid .g-item:nth-child(1),
+  .gallery-grid .g-item:nth-child(4) { grid-column: span 1; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: span 1; }
+
+  /* Contatti */
+  .cta-row { flex-direction: column; }
+
+  /* Font size minimums — niente sotto 12px su mobile */
+  .section-label { font-size: .75rem; letter-spacing: .12em; }
+  .rev-src { font-size: .75rem; }
+  .rev-who { font-size: .82rem; }
+  .ta-link { font-size: .82rem; }
+  .rev-toggle { font-size: .82rem; }
+  .footer-col h4, .f-col h4 { font-size: .75rem; }
+
+  /* Sezioni: padding laterale ridotto */
+  section { padding: 4rem 1.2rem; }
+}
+
+@media (max-width: 400px) {
+  .hero h1 { font-size: 2rem; }
+  .hero-content { padding: 5.5rem 1rem 3.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <img src="logo_cds_black.svg" alt="Corte del Sole" width="180" height="72">
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Apri menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navlinks">
+    <li><a href="#impasti" data-i18n="nav.doughs">Impasti</a></li>
+    <li><a href="#chisiamo" data-i18n="nav.about">Chi siamo</a></li>
+    <li><a href="menu.html" data-i18n="nav.menu">Menu</a></li>
+    <li><a href="#galleria" data-i18n="nav.gallery">Galleria</a></li>
+    <li><a href="#terrazza" data-i18n="nav.terrace">Terrazza</a></li>
+    <li><a href="#contatti" data-i18n="nav.contacts">Contatti</a></li>
+    <li><a href="tel:3356504223" class="btn-nav" data-i18n="nav.book">Prenota</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="home">
+  <div class="hero-bg" id="heroBg">
+    <picture>
+      <source srcset="locale.webp" type="image/webp">
+      <img src="locale.jpeg" alt="Il locale Corte del Sole">
+    </picture>
+  </div>
+  <div class="hero-glow-a" id="heroGlowA"></div>
+  <div class="hero-glow-b" id="heroGlowB"></div>
+  <div class="hero-grain"></div>
+  <div class="embers" id="embers"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow" data-i18n="hero.eyebrow">Costeggiola · Verona · Dal 2002</div>
+    <h1>
+      <span data-i18n="hero.h1">Pizze e cucina</span>
+      <em data-i18n="hero.h1em">fatte in casa</em>
+    </h1>
+    <p class="hero-sub" data-i18n="hero.sub">Impasti a lenta lievitazione, ingredienti freschi selezionati giorno per giorno. Un'esperienza gastronomica autentica nel cuore delle colline del Soave.</p>
+    <div class="hero-ctas">
+      <a href="menu.html" class="btn-primary" data-i18n="hero.btnMenu">Scopri il Menu</a>
+      <a href="tel:3356504223" class="btn-outline" data-i18n="hero.btnBook">Prenota un tavolo</a>
+    </div>
+  </div>
+
+  <!-- Sigillo rotante decorativo -->
+
+  <div class="scroll-hint">
+    <div class="scroll-track"></div>
+    <span data-i18n="hero.scroll">Scopri</span>
+  </div>
+</section>
+
+<!-- ═══ IMPASTI ═══ -->
+<section class="impasti-section" id="impasti">
+  <div class="section-inner">
+    <div class="impasti-header">
+      <p class="section-label reveal up" data-i18n="imp.label">Arte bianca</p>
+      <h2 class="reveal up d1" style="color:var(--white)"><span data-i18n="imp.h2">Sei impasti,</span><br><em style="color:var(--amber)" data-i18n="imp.h2em">una sola passione</em></h2>
+      <p class="lead reveal up d2" data-i18n="imp.lead">Ogni impasto nasce da farine selezionate e maturazioni lente. Sei proposte, un'unica filosofia.</p>
+    </div>
+    <div class="impasti-grid">
+      <div class="impasto-card reveal up">
+        <span class="impasto-num">I</span>
+        <h3>Classico</h3>
+        <p data-i18n="imp.1.desc">Bilanciata miscela di farine attentamente selezionate, lievitazione minima di 48 ore. La base di tutto: croccante sotto, morbida dentro, digeribile.</p>
+        <div class="impasto-footer">
+          <span class="impasto-tag" data-i18n="imp.1.tag">La Base</span>
+        </div>
+      </div>
+      <div class="impasto-card reveal up d1">
+        <span class="impasto-num">II</span>
+        <h3>Integrale · Multicereale</h3>
+        <p data-i18n="imp.2.desc">Farina integrale arricchita con avena, segale, farro, grano saraceno, orzo e germe di grano. Più fibre, più sapore, più carattere.</p>
+        <div class="impasto-footer">
+          <span class="impasto-tag" data-i18n="imp.2.tag">Benessere</span>        </div>
+      </div>
+      <div class="impasto-card reveal up d2">
+        <span class="impasto-num">III</span>
+        <h3>Napoletana</h3>
+        <p data-i18n="imp.3.desc">Pasta morbida e sottile con cornicione alto e alveolato, lunga maturazione. La pizza italiana per antonomasia, nel rispetto della tradizione partenopea.</p>
+        <div class="impasto-footer">
+          <span class="impasto-tag" data-i18n="imp.3.tag">Tradizione</span>        </div>
+      </div>
+      <div class="impasto-card reveal up d1">
+        <span class="impasto-num">IV</span>
+        <h3>Pinsa Romana</h3>
+        <p data-i18n="imp.4.desc">Mix di farine di frumento, soia e riso con idratazione all'80%. Croccante fuori, soffice dentro, leggerissima e altamente digeribile.</p>
+        <div class="impasto-footer">
+          <span class="impasto-tag" data-i18n="imp.4.tag">Leggerissima</span>        </div>
+      </div>
+      <div class="impasto-card reveal up d2">
+        <span class="impasto-num">V</span>
+        <h3>Senza Lievito</h3>
+        <p data-i18n="imp.5.desc">Nessun lievito o agente lievitante: solo acqua e farine macinate a pietra per una fermentazione naturale. Ideale per chi è sensibile al lievito.</p>
+        <div class="impasto-footer">
+          <span class="impasto-tag" data-i18n="imp.5.tag">Senza Lievito</span>        </div>
+      </div>
+      <div class="impasto-card reveal up d3">
+        <span class="impasto-num">VI</span>
+        <h3>Senza Glutine</h3>
+        <p data-i18n="imp.6.desc">Impasto certificato SCHAR: farina di riso, amido di patate e farina di semi di carrube, senza lattosio. Pensato con cura per i nostri clienti celiaci o allergici al glutine.</p>
+        <div class="impasto-footer">
+          <span class="impasto-tag" data-i18n="imp.6.tag">Celiachia OK</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORNAMENTO -->
+<div style="background:var(--cream);padding:0 2rem">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <div class="orn-icon">✦ ✦ ✦</div>
+      <div class="orn-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CHI SIAMO ═══ -->
+<section class="chisiamo-section" id="chisiamo">
+  <div class="section-inner">
+    <div class="chisiamo-grid">
+
+      <div class="chisiamo-text">
+        <p class="section-label reveal left" data-i18n="cs.label">Chi siamo</p>
+        <h2 class="reveal left d1"><span data-i18n="cs.h2">Una cucina che parla di</span><br><em data-i18n="cs.h2em">passione</em></h2>
+
+        <blockquote class="pull-quote reveal left d2" data-i18n="cs.quote">
+          "Se amate la pizza in ogni sua forma, dimensione e aspetto, siamo fatti esattamente per voi."
+        </blockquote>
+
+        <p class="reveal left d2" data-i18n="cs.p1">Tutto ciò che arriva in tavola è preparato con cura, da mani che conoscono la differenza tra fare le cose in fretta e farle bene.</p>
+        <p class="reveal left d3" style="margin-top:.5rem" data-i18n="cs.p2">Dal 2002 a Costeggiola, una storia di famiglia costruita attorno al gusto autentico e alla qualità degli ingredienti.</p>
+
+        <div class="features-list">
+          <div class="feature-item reveal left d3">
+            <div class="f-icon">—</div>
+            <div>
+              <strong data-i18n="cs.f1t">Tutto fatto in casa</strong>
+              <span data-i18n="cs.f1d">Pizze, cucina, pasta e dolci. Nessun prodotto industriale.</span>
+            </div>
+          </div>
+          <div class="feature-item reveal left d4">
+            <div class="f-icon">—</div>
+            <div>
+              <strong data-i18n="cs.f2t">Menu sempre aggiornato</strong>
+              <span data-i18n="cs.f2d">Consulta il menu online e ordina via telefono o WhatsApp.</span>
+            </div>
+          </div>
+          <div class="feature-item reveal left d5">
+            <div class="f-icon">—</div>
+            <div>
+              <strong data-i18n="cs.f3t">Ingredienti freschi</strong>
+              <span data-i18n="cs.f3d">Selezione attenta, stagione per stagione, filiera corta.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ORNAMENTO -->
+<div style="background:var(--ivory);padding:0 2rem">
+  <div style="max-width:1200px;margin:0 auto">
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <div class="orn-icon">✦ ✦ ✦</div>
+      <div class="orn-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MENU ═══ -->
+<section class="menu-section" id="menu">
+  <div class="section-inner" style="text-align:center">
+    <p class="section-label reveal up" data-i18n="mn.label">Il nostro menu</p>
+    <h2 class="reveal up d1"><span data-i18n="mn.h2">Cosa portiamo</span><br><em data-i18n="mn.h2em">in tavola</em></h2>
+    <p class="lead reveal up d2" style="max-width:580px;margin:1.6rem auto 3rem">Impasti artigianali a lenta lievitazione, ingredienti freschi selezionati e ricette curate con passione. Tutto il menu è disponibile online.</p>
+    <div class="hero-ctas reveal up d3" style="justify-content:center">
+      <a href="menu.html" class="btn-primary" data-i18n="mn.viewFull">Vedi il Menu Completo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERIA ═══ -->
+<section class="gallery-section" id="galleria">
+  <div class="section-inner">
+    <p class="section-label reveal up" data-i18n="gal.label">Momenti dal locale</p>
+    <h2 class="reveal up d1"><span data-i18n="gal.h2">La nostra</span> <em style="color:var(--amber)" data-i18n="gal.h2em">galleria</em></h2>
+
+    <div class="gallery-grid">
+      <div class="g-item reveal zoom">
+        <div class="g-fill" style="position:relative">
+          <picture style="position:absolute;inset:0;width:100%;height:100%;display:block">
+            <source srcset="staff.webp" type="image/webp">
+            <img src="staff.webp" alt="Il nostro staff" data-position="center 70%"
+                 style="width:100%;height:100%;object-fit:cover;object-position:center 70%;display:block">
+          </picture>
+        </div>
+        <div class="g-overlay"><div class="g-caption">Il nostro staff</div></div>
+      </div>
+      <div class="g-item reveal zoom d1">
+        <div class="g-fill" style="position:relative">
+          <picture style="position:absolute;inset:0;width:100%;height:100%;display:block">
+            <source srcset="pizza.webp" type="image/webp">
+            <img src="pizza.webp" alt="Pizza con burrata e gamberi" data-position="center center" style="width:100%;height:100%;object-fit:cover;display:block">
+          </picture>
+        </div>
+        <div class="g-overlay"><div class="g-caption" data-i18n="gal.c1">Pizza con burrata e gamberi</div></div>
+      </div>
+      <div class="g-item reveal zoom d2">
+        <div class="g-fill" style="position:relative">
+          <picture style="position:absolute;inset:0;width:100%;height:100%;display:block">
+            <source srcset="cheesecake.webp" type="image/webp">
+            <img src="cheesecake.webp" alt="Cheesecake fatta in casa" data-position="center 35%" style="width:100%;height:100%;object-fit:cover;display:block">
+          </picture>
+        </div>
+        <div class="g-overlay"><div class="g-caption" data-i18n="gal.c3">Cheesecake fatta in casa</div></div>
+      </div>
+      <div class="g-item reveal zoom d3">
+        <div class="g-fill" style="position:relative">
+          <picture style="position:absolute;inset:0;width:100%;height:100%;display:block">
+            <source srcset="pavlova.webp" type="image/webp">
+            <img src="pavlova.webp" alt="Pavlova fatta in casa" data-position="center 50%" style="width:100%;height:100%;object-fit:cover;display:block">
+          </picture>
+        </div>
+        <div class="g-overlay"><div class="g-caption" data-i18n="gal.c4">Pavlova fatta in casa</div></div>
+      </div>
+      <div class="g-item reveal zoom d4">
+        <div class="g-fill" style="position:relative">
+          <picture style="position:absolute;inset:0;width:100%;height:100%;display:block">
+            <source srcset="staff.webp" type="image/webp">
+            <img src="staff.jpg" alt="Il nostro staff" data-position="center center"
+                 style="width:100%;height:100%;object-fit:cover">
+          </picture>
+        </div>
+        <div class="g-overlay"><div class="g-caption">Il nostro staff</div></div>
+      </div>
+      <div class="g-item reveal zoom d5">
+        <div class="g-fill" style="background:linear-gradient(145deg,#584030 0%,#8A6040 55%,#B08060 100%)">
+        </div>
+        <div class="g-overlay"><div class="g-caption" data-i18n="gal.c6">La nostra terrazza estiva</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TERRAZZA ═══ -->
+<section class="terrazza-section" id="terrazza">
+
+  <!-- Sfondo carosello -->
+  <div class="t-bg-slide active"><picture><source srcset="terrazza_fuori.webp" type="image/webp"><img src="terrazza_fuori.jpeg" alt="Terrazza esterna"></picture></div>
+  <div class="t-bg-slide"><picture><source srcset="terrazza_tramonto.webp" type="image/webp"><img src="terrazza_tramonto.jpeg" alt="Terrazza al tramonto"></picture></div>
+  <div class="t-bg-slide"><picture><source srcset="terrazza_tramonto2.webp" type="image/webp"><img src="terrazza_tramonto2.jpeg" alt="Terrazza al tramonto"></picture></div>
+  <div class="t-bg-slide"><picture><source srcset="terrazza_dentro.webp" type="image/webp"><img src="terrazza_dentro.jpeg" alt="Sala interna"></picture></div>
+  <div class="t-bg-slide"><picture><source srcset="terrazza_dentro2.webp" type="image/webp"><img src="terrazza_dentro2.jpeg" alt="Sala interna"></picture></div>
+  <div class="t-overlay"></div>
+
+  <div class="section-inner">
+    <div class="terrazza-inner">
+      <div class="terrazza-text">
+        <p class="section-label reveal left" data-i18n="ter.label">Estate a Costeggiola</p>
+        <h2 class="reveal left d1" style="white-space:nowrap">Cena in <em style="color:var(--amber)">terrazza</em></h2>
+        <p class="lead reveal left d2" data-i18n="ter.lead">Nei mesi più caldi, goditi la pizza all'aperto nella nostra terrazza esterna con vista sulle colline del Soave. Il profumo del vino, la brezza della sera e il calore della cucina artigianale: un'atmosfera unica che trasforma ogni cena in un momento speciale.</p>
+        <div style="margin-top:2.5rem" class="reveal left d3">
+          <a href="tel:3356504223" class="btn-primary" data-i18n="ter.btn">Prenota il tuo Tavolo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Dots navigazione -->
+  <div class="t-dots" id="tDots"></div>
+
+</section>
+
+<!-- ═══ RECENSIONI ═══ -->
+<section class="recensioni-section">
+  <div class="section-inner">
+    <p class="section-label reveal up" data-i18n="rev.label">Cosa dicono di noi</p>
+    <h2 class="reveal up d1"><span data-i18n="rev.h2">Le parole dei</span><br><em data-i18n="rev.h2em">nostri ospiti</em></h2>
+
+    <div class="recensioni-grid">
+
+      <!-- Recensione 1 — Google ★★★★★ -->
+      <div class="rev-card reveal up d1">
+        <div class="stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+        </div>
+        <blockquote>
+          <span id="rev-short-1">"Frequentiamo questa pizzeria da un po' di tempo e per noi è diventata davvero come sentirsi a casa. La pizza è senza dubbio una delle migliori mai mangiate in zona: impasti ottimi, ingredienti di prima scelta e una varietà davvero ampia per tutti i gusti. Il locale è sempre pulito e curato nei dettagli, e anche i dolci meritano assolutamente di essere provati."</span>
+          <span class="rev-extra" id="rev-extra-1">"Un grande punto a favore è la velocità del servizio: anche quando il locale è pieno, riescono a essere rapidi ed efficienti. Il personale è sempre cordiale, sorridente e accogliente, e la titolare trasmette tutta la passione e l'amore che mette nel suo lavoro. Noi torneremo sicuramente ancora, perché ormai siamo affezionati, e la consigliamo spesso ad amici e conoscenti: merita davvero molto di più del punteggio che ha qui!"</span>
+        </blockquote>
+        <button class="rev-toggle" data-target="rev-extra-1" aria-expanded="false">Leggi tutto</button>
+      </div>
+
+      <!-- Recensione 2 — Google ★★★★☆ -->
+      <div class="rev-card reveal up d2">
+        <div class="stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star e"></div>
+        </div>
+        <blockquote>"Ho passato una serata molto piacevole. Un bel locale con un servizio super! Molti ragazzi giovani che servono tra i tavoli con passione e cordialità. Cibo molto buono, pizza ottima e un ottimo riguardo per il senza glutine! Assolutamente consigliato."</blockquote>
+      </div>
+
+      <!-- Recensione 3 — Google ★★★★★ -->
+      <div class="rev-card reveal up d3">
+        <div class="stars">
+          <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+        </div>
+        <blockquote>"Cucina deliziosa, personale gentile, assolutamente consigliato."</blockquote>
+      </div>
+
+    </div>
+
+    <div>
+      <a href="https://www.google.com/maps/place/Ristorante+Pizzeria+Corte+del+Sole/@45.4361016,11.2285544,15z/data=!4m6!3m5!1s0x477f44601f9aa475:0x3de7e395d79e5ebc!8m2!3d45.4454235!4d11.2202597!16s%2Fg%2F1tdr70jm" target="_blank" class="ta-link">
+        Lascia una recensione su Google ⭐
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTATTI ═══ -->
+<section class="contatti-section" id="contatti">
+  <div class="section-inner">
+    <p class="section-label reveal up" data-i18n="con.label">Vieni a trovarci</p>
+    <h2 class="reveal up d1"><span data-i18n="con.h2">Dove siamo &</span><br><em data-i18n="con.h2em">come contattarci</em></h2>
+
+    <div class="contatti-grid">
+      <div>
+        <div class="info-block reveal left d1">
+          <h3 data-i18n="con.phone">Telefono</h3>
+          <div class="info-row"><a href="tel:0457675369">045 767 5369</a></div>
+          <div class="info-row"><a href="tel:3356504223">335 650 4223</a></div>
+        </div>
+        <div class="info-block reveal left d2">
+          <h3 data-i18n="con.addr">Indirizzo</h3>
+          <div class="info-row"><a href="https://www.google.com/maps/place/Ristorante+Pizzeria+Corte+del+Sole/@45.4361016,11.2285544,15z/data=!4m6!3m5!1s0x477f44601f9aa475:0x3de7e395d79e5ebc!8m2!3d45.4454235!4d11.2202597!16s%2Fg%2F1tdr70jm" target="_blank">Via Costeggiola 38, Costeggiola (VR)</a></div>
+        </div>
+        <div class="info-block reveal left d2">
+          <h3 data-i18n="con.email">Email</h3>
+          <div class="info-row"><a href="mailto:cortedelsole@yahoo.it">cortedelsole@yahoo.it</a></div>
+        </div>
+        <div class="info-block reveal left d3">
+          <h3 data-i18n="con.hours">Orari di apertura</h3>
+          <table class="orari-tbl" id="orariTbl">
+            <tr class="closed"><td>Lunedì — Martedì</td><td>Chiuso</td></tr>
+            <tr><td>Mercoledì — Domenica</td><td>9:00–14:30 · 18:30–00:00</td></tr>
+          </table>
+          <div id="statusBadge" class="status-badge"></div>
+          <p style="font-size:.74rem;color:var(--text-muted);margin-top:.7rem" data-i18n="con.note">* Orari indicativi, chiama per conferma</p>
+        </div>
+      </div>
+
+      <div class="reveal right d2">
+        <div class="map-box">
+          <iframe src="https://maps.google.com/maps?q=45.4454235,11.2202597&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="cta-row">
+          <a href="tel:3356504223" class="btn-primary" style="flex:1;display:flex;align-items:center;justify-content:center" data-i18n="con.call">Chiama ora</a>
+          <a href="https://wa.me/393356504223" target="_blank" class="btn-primary btn-wa" style="flex:1;display:flex;align-items:center;justify-content:center">WhatsApp</a>
+          <a href="https://www.google.com/maps/place/Ristorante+Pizzeria+Corte+del+Sole/@45.4361016,11.2285544,15z/data=!4m6!3m5!1s0x477f44601f9aa475:0x3de7e395d79e5ebc!8m2!3d45.4454235!4d11.2202597!16s%2Fg%2F1tdr70jm" target="_blank" class="btn-outline" style="flex:1;text-align:center">Apri in Google Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-map">
+    <iframe src="https://maps.google.com/maps?q=45.4454235,11.2202597&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="footer-map-vignette"></div>
+  </div>
+
+  <div class="footer-body">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo_cds_black.svg" alt="Corte del Sole" class="footer-logo-img">
+        <p>Ristorante Pizzeria · Costeggiola (VR)</p>
+        <p>Via Costeggiola 38 · 045 767 5369</p>
+        <p class="tagline" data-i18n="ft.tagline">Dal 2002, una cucina che rispetta gli ingredienti e onora la tradizione. Nel cuore del Soave.</p>
+      </div>
+
+      <div class="f-col">
+        <h4 data-i18n="ft.nav">Navigazione</h4>
+        <ul>
+          <li><a href="#home" data-i18n="ft.home">Home</a></li>
+          <li><a href="#impasti" data-i18n="ft.doughs">I nostri impasti</a></li>
+          <li><a href="#chisiamo" data-i18n="ft.about">Chi siamo</a></li>
+          <li><a href="menu.html" data-i18n="ft.menuFull">Menu completo</a></li>
+          <li><a href="#galleria" data-i18n="ft.gallery">Galleria</a></li>
+          <li><a href="#terrazza" data-i18n="ft.terrace">Terrazza</a></li>
+          <li><a href="#contatti" data-i18n="ft.contacts">Contatti</a></li>
+        </ul>
+      </div>
+
+      <div class="f-col">
+        <h4 data-i18n="ft.follow">Seguici</h4>
+        <div class="social-list">
+          <a href="https://www.facebook.com/pizzeriacortedelsole/" target="_blank" class="soc-item">
+            <div class="soc-dot"></div> Facebook
+          </a>
+          <a href="https://www.google.com/maps/place/Ristorante+Pizzeria+Corte+del+Sole/@45.4361016,11.2285544,15z/data=!4m6!3m5!1s0x477f44601f9aa475:0x3de7e395d79e5ebc!8m2!3d45.4454235!4d11.2202597!16s%2Fg%2F1tdr70jm" target="_blank" class="soc-item">
+            <div class="soc-dot"></div> Google Maps
+          </a>
+          <a href="https://wa.me/393356504223" target="_blank" class="soc-item">
+            <div class="soc-dot"></div> WhatsApp
+          </a>
+          <a href="mailto:cortedelsole@yahoo.it" class="soc-item">
+            <div class="soc-dot"></div> Email
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span data-i18n="ft.copy">© 2026 Ristorante Pizzeria Corte del Sole · Via Costeggiola 38, Costeggiola (VR)</span>
+      <span style="opacity:.3;font-size:.72rem" data-i18n="ft.love">Con ♥ nel Soave</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ FAB FLOTTANTI ═══ -->
+<div class="fab-group" id="fabGroup">
+  <button class="fab fab-top" id="fabTop" aria-label="Torna in cima">↑</button>
+  <a class="fab fab-wa" href="https://wa.me/393356504223" target="_blank" rel="noopener" aria-label="WhatsApp" style="font-size:.65rem;font-weight:700;letter-spacing:.04em;color:#fff">WA</a>
+</div>
+
+<script>
+/* ── NAV SCROLL ── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── HAMBURGER ── */
+const hbg = document.getElementById('hamburger');
+const nav = document.getElementById('navlinks');
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hbg.classList.remove('open');
+  nav.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+/* ── EMBER PARTICLES ── */
+const embers = document.getElementById('embers');
+for (let i = 0; i < 22; i++) {
+  const e = document.createElement('div');
+  e.className = 'ember';
+  const sz = 1.5 + Math.random() * 2.5;
+  e.style.cssText = `
+    left: ${Math.random() * 100}%;
+    bottom: 0;
+    width: ${sz}px;
+    height: ${sz}px;
+    animation-duration: ${4.5 + Math.random() * 6}s;
+    animation-delay: ${Math.random() * 9}s;
+  `;
+  embers.appendChild(e);
+}
+
+/* ── HERO PARALLAX ── */
+const heroBg   = document.getElementById('heroBg');
+const heroGlA  = document.getElementById('heroGlowA');
+const heroGlB  = document.getElementById('heroGlowB');
+
+/* ── PROGRESS BAR ── */
+const prog = document.getElementById('prog');
+
+/* ── FAB ── */
+const fabGroup = document.getElementById('fabGroup');
+document.getElementById('fabTop').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+
+  /* parallax */
+  if (y < window.innerHeight * 1.8) {
+    heroBg.style.transform  = `translateY(${y * 0.42}px)`;
+    heroGlA.style.transform = `translateY(${y * 0.22}px)`;
+    heroGlB.style.transform = `translateY(${y * 0.14}px)`;
+  }
+
+  /* progress */
+  prog.style.width = (y / total * 100) + '%';
+
+  /* fab */
+  fabGroup.classList.toggle('show', y > 500);
+}, { passive: true });
+
+/* ── SCROLL REVEAL ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── OGGI NEGLI ORARI ── */
+// 1=Lun,2=Mar → row0(chiuso) | 3=Mer,4=Gio,5=Ven → row1 | 6=Sab → row2 | 0=Dom → row3
+const dayMap = { 1:0, 2:0, 3:1, 4:1, 5:1, 6:2, 0:3 };
+const rows = document.querySelectorAll('#orariTbl tr');
+const today = new Date().getDay();
+const ri = dayMap[today];
+if (rows[ri]) {
+  rows[ri].classList.add('oggi');
+  if (today !== 1 && today !== 2) {
+    const badge = document.createElement('span');
+    badge.className = 'oggi-badge';
+    badge.textContent = 'Oggi';
+    rows[ri].querySelector('td').appendChild(badge);
+  }
+}
+
+/* ── APERTO / CHIUSO ORA ── */
+(function() {
+  const now   = new Date();
+  const day   = now.getDay(); // 0=Dom 1=Lun 2=Mar 3-5=Mer-Ven 6=Sab
+  const t     = now.getHours() * 60 + now.getMinutes();
+  let open    = false;
+  // aperto Mer-Dom (3,4,5,6,0) — cucina 12:00-14:00 e 19:00-22:00
+  if (day === 0 || day >= 3) {
+    open = (t >= 720 && t < 840) || (t >= 1140 && t < 1320); // 12-14 | 19-22
+  }
+  const el = document.getElementById('statusBadge');
+  if (el) {
+    el.className = 'status-badge ' + (open ? 'status-open' : 'status-closed');
+    el.innerHTML = '<div class="status-dot"></div>' + (open ? 'Aperto ora' : 'Chiuso ora');
+  }
+})();
+
+/* ── MENU TABS ── */
+document.querySelectorAll('.menu-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.menu-tab').forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+
+    const panelId = tab.dataset.panel;
+    document.querySelectorAll('.menu-panel').forEach(p => {
+      p.classList.remove('active');
+      p.style.display = 'none';
+    });
+    const panel = document.getElementById(panelId);
+    panel.style.display = 'grid';
+    panel.offsetWidth; // force reflow per transizione
+    panel.classList.add('active');
+  });
+});
+
+/* ── CONTATORI ANIMATI ── */
+function animCount(el, target, suffix) {
+  const dur = 1600;
+  const start = performance.now();
+  (function frame(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * ease) + suffix;
+    if (p < 1) requestAnimationFrame(frame);
+  })(start);
+}
+
+const countObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el  = e.target;
+    animCount(el, +el.dataset.target, el.dataset.suffix || '');
+    countObs.unobserve(el);
+  });
+}, { threshold: 0.6 });
+
+document.querySelectorAll('.count').forEach(el => countObs.observe(el));
+</script>
+<script src="lang.js"></script>
+<script>
+/* Gallery image positioning — modifica data-position su ogni <img> per riposizionare */
+document.querySelectorAll('.gallery-grid img[data-position]').forEach(img => {
+  img.style.objectPosition = img.dataset.position;
+});
+
+/* Carosello terrazza — sfondo con crossfade */
+(function () {
+  const section = document.getElementById('terrazza');
+  const slides  = section.querySelectorAll('.t-bg-slide');
+  const dotsEl  = document.getElementById('tDots');
+  const total   = slides.length;
+  let current   = 0;
+  let timer;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 't-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    dotsEl.querySelectorAll('.t-dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 4500);
+  }
+
+  /* swipe touch */
+  let startX = 0;
+  section.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  section.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  });
+
+  resetTimer();
+}());
+
+/* ── RECENSIONI: espandi / comprimi ── */
+document.querySelectorAll('.rev-toggle').forEach(btn => {
+  const extra = document.getElementById(btn.dataset.target);
+  btn.addEventListener('click', () => {
+    const isExpanded = extra.classList.toggle('expanded');
+    btn.textContent = isExpanded ? 'Leggi meno' : 'Leggi tutto';
+    btn.setAttribute('aria-expanded', isExpanded);
+  });
+});
+</script>
+</body>
+</html>

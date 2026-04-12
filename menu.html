@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Menu completo Ristorante Pizzeria Corte del Sole – Costeggiola (VR). Pizze artigianali, cucina, vini e dolci fatti in casa.">
+<title>Menu Completo – Corte del Sole · Costeggiola (VR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   VARIABILI & RESET
+   ============================================= */
+:root {
+  --amber:      #C07A10;
+  --amber-soft: #EBD5A0;
+  --amber-bg:   #FAF0DE;
+  --ember:      #C04515;
+  --soil:       #180E04;
+  --soil-mid:   #221204;
+  --cream:      #FAF3E8;
+  --ivory:      #F4EBDA;
+  --olive:      #3A5028;
+  --terracotta: #A83C28;
+  --copper:     #906015;
+  --text:       #1A100A;
+  --text-mid:   #4A3828;
+  --text-muted: #7A6050;
+  --white:      #FFFFFF;
+  --serif:  'Playfair Display', Georgia, serif;
+  --body:   'Jost', system-ui, sans-serif;
+  --r-sm: 6px; --r-md: 14px; --r-lg: 26px;
+  --shadow-warm: 0 8px 48px rgba(24,14,4,.12);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--body); background: var(--cream); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--soil); }
+::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 3px; }
+h1,h2,h3,h4 { font-family: var(--serif); line-height: 1.08; }
+
+#prog { position: fixed; top: 0; left: 0; z-index: 2000; height: 2px; width: 0%; background: linear-gradient(90deg, var(--amber), var(--ember)); pointer-events: none; transition: width .08s linear; }
+
+/* =============================================
+   NAV
+   ============================================= */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 1.4rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: all .5s cubic-bezier(.25,.46,.45,.94);
+}
+nav.scrolled {
+  top: 0; padding: .9rem 3rem;
+  background: rgba(250,244,234,.97);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(24,14,4,.06), 0 4px 24px rgba(24,14,4,.05);
+}
+.nav-logo { text-decoration: none; display: flex; align-items: center; flex-shrink: 0; }
+.nav-logo img { height: 52px; width: auto; display: block; filter: brightness(0) invert(1); transition: height .5s cubic-bezier(.25,.46,.45,.94), filter .5s; }
+nav.scrolled .nav-logo img { height: 40px; filter: none; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+.nav-links a { font-size: .78rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,.75); transition: color .2s; position: relative; }
+.nav-links a:not(.btn-nav)::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1px; background: var(--amber); transform: scaleX(0); transform-origin: center; transition: transform .3s ease; }
+.nav-links a:not(.btn-nav):hover::after { transform: scaleX(1); }
+.nav-links a:not(.btn-nav):hover { color: var(--amber) !important; }
+nav.scrolled .nav-links a { color: var(--text-muted); }
+.nav-active { color: var(--amber) !important; }
+.nav-active::after { transform: scaleX(1) !important; }
+.btn-nav { background: linear-gradient(135deg, #B47010, #C98818) !important; color: var(--white) !important; padding: .6rem 1.6rem; border-radius: 2rem; font-weight: 600 !important; letter-spacing: .06em; box-shadow: 0 3px 14px rgba(192,122,16,.35); transition: transform .2s, box-shadow .2s !important; }
+.btn-nav:hover { transform: translateY(-2px) !important; box-shadow: 0 8px 32px rgba(192,122,16,.55) !important; }
+.btn-nav::after { display: none !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 1002; }
+.hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all .3s ease; }
+nav.scrolled .hamburger span { background: var(--soil); }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--amber) !important; }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--amber) !important; }
+
+/* =============================================
+   MENU HERO
+   ============================================= */
+.menu-hero {
+  min-height: 58vh;
+  position: relative;
+  display: flex; align-items: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 80% at 55% 40%, #4E2A0A 0%, #2A1508 30%, #180E04 65%, #0C0804 100%);
+}
+.menu-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 55% at 70% 35%, rgba(192,122,16,.18) 0%, transparent 65%),
+              radial-gradient(ellipse 35% 40% at 15% 70%, rgba(196,80,24,.1) 0%, transparent 60%);
+}
+.menu-hero-grain {
+  position: absolute; inset: 0; pointer-events: none; opacity: .032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+.menu-hero-content {
+  position: relative; z-index: 2;
+  padding: 9rem 5rem 5rem;
+  max-width: 900px;
+}
+.hero-breadcrumb {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-size: .68rem; letter-spacing: .15em; text-transform: uppercase;
+  color: rgba(255,255,255,.35); margin-bottom: 1.6rem;
+}
+.hero-breadcrumb a { color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+.hero-breadcrumb a:hover { color: var(--amber); }
+.hero-breadcrumb .arrow { opacity: .3; }
+.menu-hero-label {
+  display: inline-flex; align-items: center; gap: .7rem;
+  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--amber); font-weight: 500; margin-bottom: 1.4rem;
+}
+.menu-hero-label::before, .menu-hero-label::after { content: ''; display: block; width: 24px; height: 1px; background: var(--amber); opacity: .5; }
+.menu-hero h1 {
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  font-weight: 400; color: var(--white);
+  line-height: 1.04; letter-spacing: -.01em;
+  margin-bottom: 1.2rem;
+}
+.menu-hero h1 em {
+  font-style: italic; display: block;
+  background: linear-gradient(135deg, #A07010 0%, #D8A020 42%, #A87808 68%, #CC9018 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.menu-hero-sub { font-size: .98rem; color: rgba(255,255,255,.45); line-height: 1.75; max-width: 480px; font-weight: 300; margin-bottom: 2rem; }
+.menu-hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary { background: linear-gradient(135deg, #B47010, #C98818); color: var(--white); padding: .9rem 2.2rem; border-radius: 3rem; font-size: .82rem; font-weight: 600; text-decoration: none; letter-spacing: .07em; text-transform: uppercase; display: inline-block; transition: all .3s; box-shadow: 0 4px 22px rgba(192,122,16,.4); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 36px rgba(192,122,16,.6); background: linear-gradient(135deg, #C48018, #DA9820); }
+.btn-ghost { border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.78); padding: .9rem 2.2rem; border-radius: 3rem; font-size: .82rem; text-decoration: none; letter-spacing: .07em; text-transform: uppercase; display: inline-block; transition: all .3s; backdrop-filter: blur(8px); }
+.btn-ghost:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.4); }
+
+/* =============================================
+   MENU NAV (STICKY TABS)
+   ============================================= */
+.menu-nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(250,244,234,.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(24,14,4,.09);
+  box-shadow: 0 2px 18px rgba(24,14,4,.07);
+}
+.menu-nav-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+  display: flex; overflow-x: auto;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.menu-nav-inner::-webkit-scrollbar { display: none; }
+.mnav-tab {
+  flex-shrink: 0; padding: 1rem 1.3rem;
+  font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
+  color: var(--text-muted); text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all .22s; white-space: nowrap;
+}
+.mnav-tab:hover { color: var(--amber); }
+.mnav-tab.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+/* =============================================
+   SEZIONI MENU
+   ============================================= */
+.menu-section { padding: 5rem 2rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  font-size: .68rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--amber); font-weight: 600;
+  display: flex; align-items: center; gap: .8rem; margin-bottom: .8rem;
+}
+.section-label::before { content: ''; display: block; width: 18px; height: 1px; background: var(--amber); }
+h2 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.1; color: var(--soil); margin-bottom: .8rem; letter-spacing: -.01em; }
+h2 em { font-style: italic; color: var(--terracotta); }
+.section-lead { font-size: .97rem; color: var(--text-muted); line-height: 1.8; max-width: 560px; font-weight: 300; margin-bottom: 3rem; }
+
+/* Sub-sezione */
+.sub-section { margin-top: 3.5rem; }
+.sub-section:first-child { margin-top: 0; }
+.sub-label {
+  font-family: var(--serif); font-size: 1.3rem; font-weight: 600;
+  color: var(--soil); margin-bottom: 1.5rem; padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(24,14,4,.08);
+  display: flex; align-items: center; gap: .7rem;
+  letter-spacing: -.01em;
+}
+.sub-label .ico { font-size: 1.1rem; }
+
+/* Griglia voci */
+.items-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 4rem;
+}
+.items-grid.three-col { grid-template-columns: 1fr 1fr 1fr; gap: 0 2.5rem; }
+.items-grid.one-col { grid-template-columns: 1fr; }
+
+/* Voce */
+.mitem { padding: .6rem 0; border-bottom: 1px solid rgba(24,14,4,.055); }
+.mitem:last-child { border-bottom: none; }
+.mitem-row { display: flex; align-items: baseline; gap: .35rem; }
+.mitem-name { font-size: .91rem; font-weight: 500; color: var(--text); }
+.mitem-dots { flex: 1; border-bottom: 1px dotted rgba(24,14,4,.18); margin-bottom: 4px; min-width: 10px; }
+.mitem-price { font-family: var(--serif); font-size: .88rem; color: var(--terracotta); font-weight: 500; white-space: nowrap; }
+.mitem-desc { font-size: .75rem; color: var(--text-muted); font-weight: 300; margin-top: .12rem; line-height: 1.45; }
+
+/* Voce in evidenza */
+.mitem.special .mitem-name::after { content: ' ✦'; color: var(--amber); font-size: .6rem; }
+.mitem.special .mitem-name { font-weight: 600; color: var(--soil); }
+
+/* Sfondi sezioni alternati */
+.bg-cream  { background: var(--cream); }
+.bg-ivory  { background: var(--ivory); }
+.bg-amber  { background: var(--amber-bg); }
+.bg-dark   { background: var(--soil); }
+.bg-dark h2 { color: var(--white); }
+.bg-dark .section-label { color: var(--amber); }
+.bg-dark .section-lead { color: rgba(255,255,255,.42); }
+.bg-dark .sub-label { color: var(--white); border-bottom-color: rgba(255,255,255,.08); }
+.bg-dark .mitem { border-bottom-color: rgba(255,255,255,.06); }
+.bg-dark .mitem-name { color: rgba(255,255,255,.88); }
+.bg-dark .mitem-desc { color: rgba(255,255,255,.38); }
+.bg-dark .mitem-dots { border-bottom-color: rgba(255,255,255,.12); }
+.bg-dark .mitem-price { color: #D09820; }
+.bg-dark .section-label::before { background: var(--amber); }
+.bg-dark .info-box { background: rgba(255,255,255,.05); border-color: rgba(192,122,16,.2); }
+.bg-dark .info-box p { color: rgba(255,255,255,.45); }
+
+/* Info box */
+.info-box {
+  background: rgba(192,122,16,.07);
+  border: 1px solid rgba(192,122,16,.2);
+  border-radius: var(--r-md);
+  padding: 1.2rem 1.6rem;
+  margin-bottom: 2.5rem;
+}
+.info-box p { font-size: .82rem; color: var(--text-mid); line-height: 1.7; font-weight: 300; }
+.info-box strong { color: var(--soil); font-weight: 600; }
+
+/* Allergen box */
+.allergen-box {
+  background: rgba(176,68,48,.06);
+  border: 1px solid rgba(176,68,48,.18);
+  border-radius: var(--r-md);
+  padding: 1.4rem 2rem;
+  display: flex; align-items: flex-start; gap: 1rem;
+  margin-top: 4rem;
+}
+.allergen-ico { font-size: 1.6rem; flex-shrink: 0; margin-top: .1rem; }
+.allergen-box p { font-size: .83rem; color: var(--text-mid); line-height: 1.75; font-weight: 300; }
+.allergen-box strong { color: var(--terracotta); font-weight: 600; }
+
+/* Note generali pizza */
+.pizza-adds {
+  margin-top: 3rem;
+  background: var(--ivory);
+  border: 1px solid rgba(24,14,4,.07);
+  border-radius: var(--r-lg);
+  padding: 2rem 2.5rem;
+}
+.pizza-adds h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--soil); margin-bottom: 1rem; }
+.adds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem 3rem; }
+.add-row { display: flex; align-items: baseline; gap: .35rem; padding: .35rem 0; border-bottom: 1px solid rgba(24,14,4,.05); font-size: .82rem; }
+.add-row:last-child { border-bottom: none; }
+.add-name { color: var(--text-mid); font-weight: 400; flex: 1; }
+.add-price { color: var(--terracotta); font-weight: 500; font-family: var(--serif); white-space: nowrap; font-size: .82rem; }
+
+/* Vini sub-sezione header */
+.wine-cat-head {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 3rem 0 1.5rem;
+}
+.wine-cat-head:first-child { margin-top: 0; }
+.wine-cat-line { flex: 1; height: 1px; background: rgba(255,255,255,.08); }
+.wine-cat-label {
+  font-size: .65rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--amber); font-weight: 600; white-space: nowrap;
+}
+
+/* Note cucina */
+.note-cucina {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--olive); background: rgba(58,80,40,.1);
+  border: 1px solid rgba(58,80,40,.2);
+  padding: .3rem .8rem; border-radius: 2rem;
+  font-weight: 600; margin-bottom: 2.5rem;
+}
+
+/* Ornamento */
+.ornament { display: flex; align-items: center; justify-content: center; gap: 1.5rem; padding: 1rem 0; }
+.orn-line { flex: 1; max-width: 200px; height: 1px; background: linear-gradient(to right, transparent, rgba(192,122,16,.3), transparent); }
+.orn-icon { color: var(--amber); font-size: .82rem; opacity: .5; letter-spacing: .35em; }
+
+/* =============================================
+   FOOTER
+   ============================================= */
+footer { background: var(--soil); color: rgba(255,255,255,.42); }
+.footer-map { height: 260px; position: relative; overflow: hidden; }
+.footer-map iframe { width: 100%; height: 100%; border: none; display: block; filter: saturate(.4) brightness(.55) contrast(1.1); transition: filter .4s; }
+.footer-map:hover iframe { filter: saturate(.7) brightness(.75) contrast(1.05); }
+.footer-map-vignette { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to bottom, var(--soil) 0%, transparent 35%, transparent 65%, var(--soil) 100%); }
+.footer-body { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+.footer-logo-img { height: 72px; width: auto; display: block; filter: brightness(0) invert(1); opacity: .88; margin-bottom: 1rem; }
+.footer-brand p { font-size: .83rem; line-height: 1.6; }
+.footer-brand .tagline { margin-top: .9rem; font-size: .77rem; line-height: 1.75; max-width: 300px; opacity: .5; }
+.f-col h4 { font-size: .63rem; letter-spacing: .15em; text-transform: uppercase; color: var(--amber); font-weight: 600; margin-bottom: 1.2rem; font-family: var(--body); }
+.f-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.f-col a { color: rgba(255,255,255,.38); text-decoration: none; font-size: .86rem; transition: color .2s; }
+.f-col a:hover { color: var(--amber); }
+.social-list { display: flex; flex-direction: column; gap: .6rem; }
+.soc-item { display: flex; align-items: center; gap: .6rem; color: rgba(255,255,255,.38); text-decoration: none; font-size: .86rem; transition: color .2s; }
+.soc-item:hover { color: var(--amber); }
+.soc-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: .75rem; }
+
+/* =============================================
+   FLOATING BUTTONS
+   ============================================= */
+.fab-group { position: fixed; bottom: 2rem; right: 1.8rem; display: flex; flex-direction: column; gap: .6rem; z-index: 800; opacity: 0; transform: translateY(16px); transition: opacity .4s, transform .4s; pointer-events: none; }
+.fab-group.show { opacity: 1; transform: none; pointer-events: auto; }
+.fab { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.2rem; box-shadow: 0 4px 18px rgba(24,14,4,.28); border: none; cursor: pointer; transition: transform .25s, box-shadow .25s; }
+.fab:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(24,14,4,.35); }
+.fab-wa { background: #25D366; }
+.fab-top { background: var(--soil); color: rgba(255,255,255,.65); font-size: .9rem; }
+
+/* =============================================
+   MOBILE
+   ============================================= */
+@media (max-width: 960px) {
+  nav { padding: 1.2rem 1.5rem; top: 0; }
+  nav.scrolled { padding: .9rem 1.5rem; top: 0; }
+  .nav-links { display: none; }
+  .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; background: rgba(24,14,4,.97); backdrop-filter: blur(24px); justify-content: center; align-items: center; z-index: 1001; gap: 2.5rem; }
+  .nav-links.open a { font-size: 1.1rem; color: rgba(255,255,255,.72) !important; }
+  .hamburger { display: flex; }
+  .menu-hero-content { padding: 8rem 1.5rem 4rem; }
+  .items-grid, .items-grid.three-col { grid-template-columns: 1fr; }
+  .adds-grid { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: span 2; }
+  .menu-section { padding: 4rem 1.5rem; }
+}
+@media (max-width: 520px) {
+  /* Hero */
+  .menu-hero h1 { font-size: 2.2rem; }
+  .menu-hero-content { padding: 6rem 1.2rem 3rem; }
+  .menu-hero-sub { font-size: .92rem; }
+  .menu-hero-cta { flex-direction: column; }
+
+  /* Tab nav: assicura scroll orizzontale visibile */
+  .menu-nav-inner { padding: 0 1.2rem; gap: 0; }
+  .mnav-tab { padding: .85rem 1rem; font-size: .72rem; }
+
+  /* Voci menu */
+  .mitem-name { font-size: .9rem; }
+  .mitem-price { font-size: .9rem; white-space: nowrap; }
+  .mitem-desc { font-size: .82rem; }
+  .sub-label { font-size: .75rem; }
+
+  /* Font size minimums */
+  .section-label { font-size: .75rem; letter-spacing: .12em; }
+  .f-col h4 { font-size: .75rem; }
+  .menu-section { padding: 3rem 1.2rem; }
+
+  /* Footer */
+  .footer-top { grid-template-columns: 1fr; }
+  .footer-brand { grid-column: span 1; }
+}
+
+@media (max-width: 400px) {
+  .menu-hero h1 { font-size: 1.9rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo_cds_black.svg" alt="Corte del Sole" width="180" height="72">
+  </a>
+  <button class="hamburger" id="hamburger" aria-label="Apri menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navlinks">
+    <li><a href="index.html#impasti" data-i18n="nav.doughs">Impasti</a></li>
+    <li><a href="index.html#chisiamo" data-i18n="nav.about">Chi siamo</a></li>
+    <li><a href="menu.html" class="nav-active" data-i18n="nav.menu">Menu</a></li>
+    <li><a href="index.html#galleria" data-i18n="nav.gallery">Galleria</a></li>
+    <li><a href="index.html#terrazza" data-i18n="nav.terrace">Terrazza</a></li>
+    <li><a href="index.html#contatti" data-i18n="nav.contacts">Contatti</a></li>
+    <li><a href="tel:3356504223" class="btn-nav" data-i18n="nav.book">Prenota</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="menu-hero">
+  <div class="menu-hero-grain"></div>
+  <div class="menu-hero-content">
+    <div class="hero-breadcrumb">
+      <a href="index.html" data-i18n="mh.home">Home</a>
+      <span class="arrow">→</span>
+      Menu
+    </div>
+    <div class="menu-hero-label" data-i18n="mh.label">Pizzeria Ristorante · Costeggiola (VR)</div>
+    <h1><span data-i18n="mh.h1">Il nostro</span><em data-i18n="mh.h1em">menu completo</em></h1>
+    <p class="menu-hero-sub" data-i18n="mh.sub">Impasti artigianali a lenta lievitazione, ingredienti freschi selezionati e ricette curate con passione. Dal 2002 nel cuore del Soave.</p>
+    <div class="menu-hero-cta">
+      <a href="tel:3356504223" class="btn-primary" data-i18n="mh.btnBook">Prenota un tavolo</a>
+      <a href="https://wa.me/393356504223" target="_blank" class="btn-ghost" data-i18n="mh.btnWa">WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TAB NAVIGAZIONE ═══ -->
+<nav class="menu-nav" id="menuNav" aria-label="Sezioni menu">
+  <div class="menu-nav-inner">
+    <a class="mnav-tab" href="#classiche" data-i18n="mt.classiche">Classiche</a>
+    <a class="mnav-tab" href="#nostre" data-i18n="mt.nostre">Le Nostre</a>
+    <a class="mnav-tab" href="#bianche" data-i18n="mt.bianche">Bianche</a>
+    <a class="mnav-tab" href="#senzaglutine" data-i18n="mt.glutenfree">Senza Glutine</a>
+    <a class="mnav-tab" href="#cucina" data-i18n="mt.cucina">Cucina</a>
+    <a class="mnav-tab" href="#insalate" data-i18n="mt.insalate">Insalate</a>
+    <a class="mnav-tab" href="#dolci" data-i18n="mt.dolci">Dolci & Bibite</a>
+    <a class="mnav-tab" href="#vini" data-i18n="mt.vini">Vini</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     1. PIZZE CLASSICHE
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-cream" id="classiche">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.1label"></p>
+    <h2><span data-i18n="ms.1h2">Pizze</span> <em data-i18n="ms.1em">Classiche</em></h2>
+    <p class="section-lead" data-i18n="ms.1lead">Le basi della nostra arte bianca — impasto napoletano a 48 ore di maturazione, ingredienti selezionati con cura.</p>
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Margherita</span><span class="mitem-dots"></span><span class="mitem-price">€ 5,80</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Romana</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, acciughe, capperi</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Napoli</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, acciughe, olive nere greche</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Diavola</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, capperi, salamino piccante</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">4 Formaggi</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, Asiago, gorgonzola dolce, Monte Veronese</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Capricciosa</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, prosciutto cotto, funghi trifolati, carciofi, olive nere greche</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Prosciutto e funghi</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, prosciutto cotto, funghi trifolati</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">4 Stagioni</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, prosciutto cotto, carciofi, funghi trifolati</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Vegetariana</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, melanzane e zucchine grigliate, radicchio rosso, pomodorini, patate</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Melanzane</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, melanzane grigliate, Grana grattugiato</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Porcini</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, funghi porcini, Grana grattugiato</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Viennese</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, salamino piccante, würstel</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     2. LE NOSTRE PIZZE
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-ivory" id="nostre">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.2label"></p>
+    <h2><span data-i18n="ms.2h2">Le Nostre</span> <em data-i18n="ms.2em">Pizze</em></h2>
+    <p class="section-lead" data-i18n="ms.2lead">Creazioni originali nate dalla fantasia dei nostri pizzaioli — ognuna racconta una storia di sapori e territorio.</p>
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Stromboli</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, cipolla rossa, capperi, salamino piccante, peperoni grigliati</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Gustosa</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, salsiccia dolce, salamino piccante, provola affumicata</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Pusteria</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, Asiago, Monte Veronese, speck, salamino piccante</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Corte</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, Asiago, carciofi, funghi chiodini, salamino piccante</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Urlo</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, Asiago, peperoni grigliati, Grana, speck</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Porky's</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, patate, funghi porcini, salsiccia dolce</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Casale</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, Asiago, melanzane grigliate, gorgonzola dolce, salsiccia dolce</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Zingara</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, peperoni grigliati, olive nere greche, carciofi, origano</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Baita</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, funghi porcini, cipolla rossa, pancetta affumicata, Grana</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Super</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, prosciutto cotto, funghi trifolati, carciofi, würstel, salsiccia dolce, olive nere greche</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Palinuro</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, zucchine grigliate, tonno, briè</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Monti</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, funghi chiodini, gorgonzola dolce, speck</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Campagna</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, prosciutto cotto, champignons freschi</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Tirolese</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, funghi trifolati, würstel, Asiago, speck</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Boscaiola</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, salsiccia dolce, funghi chiodini, funghi porcini, speck</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Contadina</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, porro, salsiccia dolce</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Aprica</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, cipolla brasata nel Valpolicella, stracchino, bresaola</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Contrada</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, porro, stracchino, prosciutto crudo di Soave</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">S. Andrea</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, zucchine grigliate, ricotta, speck</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Bonassola</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, gamberetti, Philadelphia, pomodorini confit</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Romagna</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, ricotta, prosciutto crudo di Soave, rucola</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Valpolicella</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, stracchino, patate, pancetta affumicata, cipolla brasata nel Valpolicella</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Brunico</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, gorgonzola dolce, noci, speck</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Cascina</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, patate, salsiccia dolce, cipolla brasata nel Valpolicella</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Bufalina</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, pomodorini, basilico</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Santorini</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Pomodoro, burrata pugliese, melanzane al forno, salamino piccante, Grana, basilico</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Caserta</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Pomodoro, burrata pugliese, prosciutto crudo di Soave, champignons freschi</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Zuccona</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, speck, zucchine grigliate</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Mat</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, zucchine grigliate, Grana, salamino piccante, bufala campana</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Posillipo</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,50</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, melanzane fritte, Grana, pomodorini confit, basilico</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Estate</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, rucola, pomodorini, scaglie di Grana</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Creta</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, melanzane, olive greche, basilico, pomodorini confit</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Sassari</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, pomodorini, tonno, capperi</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Cunzata</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Pomodoro, acciughe, pomodorini, olive greche, origano, bufala campana</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Bresaola</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, bresaola, rucola, scaglie di Grana</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Beata</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, prosciutto crudo di Soave, pomodorini</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Gallura</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Pomodoro, tonno, capperi, olive greche, origano, bufala campana</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Mondello</span><span class="mitem-dots"></span><span class="mitem-price">€ 13,00</span></div>
+        <p class="mitem-desc">Pomodoro, burrata pugliese, zucchine grigliate, tonno affumicato</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Ponza</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Pomodoro, pesto genovese, bufala campana, pomodori secchi, Grana, basilico</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Appennino</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, radicchio, cipolla brasata nel Valpolicella, salamino piccante</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Appia</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Pomodoro, burrata pugliese, carciofi, bresaola</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     3. PIZZE BIANCHE
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-cream" id="bianche">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.3label"></p>
+    <h2><span data-i18n="ms.3h2">Pizze</span> <em data-i18n="ms.3em">Bianche</em></h2>
+    <p class="section-lead" data-i18n="ms.3lead">Senza pomodoro — la base neutra esalta formaggi, affettati e ingredienti di eccellenza in tutta la loro complessità.</p>
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Deliziosa</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,50</span></div>
+        <p class="mitem-desc">Mozzarella, gorgonzola dolce, salamino piccante, champignons, pancetta affumicata</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Tartufata</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,50</span></div>
+        <p class="mitem-desc">Mozzarella, funghi porcini, crema di tartufo, philadelphia, prosciutto crudo di Soave</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Sottobosco</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Mozzarella, crema di tartufo, champignons, speck</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Lord</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Mozzarella, champignons, cipolla rossa, salamino piccante, briè, Grana</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Briosa</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Mozzarella, zucchine grigliate, pancetta affumicata, stracchino</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Calzone</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Mozzarella, prosciutto cotto, funghi trifolati, ricotta</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Gallio</span><span class="mitem-dots"></span><span class="mitem-price">€ 8,50</span></div>
+        <p class="mitem-desc">Mozzarella, speck, Asiago, rosmarino, patate</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Liguria</span><span class="mitem-dots"></span><span class="mitem-price">€ 13,00</span></div>
+        <p class="mitem-desc">Mozzarella, pesto genovese, burrata pugliese, gamberetti, pomodorini confit</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Bondola</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Mozzarella, burrata pugliese, granella di pistacchi, mortadella</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Primavera</span><span class="mitem-dots"></span><span class="mitem-price">€ 9,00</span></div>
+        <p class="mitem-desc">Mozzarella, zucchine grigliate, radicchio, rucola, pomodorini, ricotta</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Fiordo</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Mozzarella, melanzane, salmone affumicato, stracchino, pomodorini confit</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Gavia</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Mozzarella, champignons, bresaola, glassa all'aceto balsamico</p>
+      </div>
+    </div>
+
+    <!-- Aggiunte Pizza -->
+    <div class="pizza-adds">
+      <h4 data-i18n="add.title">Aggiunte &amp; note</h4>
+      <div class="adds-grid">
+        <div class="add-row"><span class="add-name" data-i18n="add.coperto">Coperto</span><span class="add-price">€ 2,50</span></div>
+        <div class="add-row"><span class="add-name" data-i18n="add.box">Box asporto</span><span class="add-price">€ 0,50</span></div>
+        <div class="add-row"><span class="add-name" data-i18n="add.mini">Pizze mini</span><span class="add-price">–20%</span></div>
+        <div class="add-row"><span class="add-name" data-i18n="add.doppio">Doppio impasto</span><span class="add-price">€ 2,00</span></div>
+        <div class="add-row"><span class="add-name" data-i18n="add.patate">Patatine fritte</span><span class="add-price">€ 3,00</span></div>
+        <div class="add-row"><span class="add-name">Speck, pancetta affumicata, prosciutto crudo di Soave, mortadella, acciughe</span><span class="add-price">€ 2,50</span></div>
+        <div class="add-row"><span class="add-name">Bufala, crema di tartufo, funghi porcini, funghi chiodini, bresaola</span><span class="add-price">€ 3,00</span></div>
+        <div class="add-row"><span class="add-name">Salmone / gamberetti / tonno affumicato / spada affumicato</span><span class="add-price">€ 3,50</span></div>
+        <div class="add-row"><span class="add-name">Acciughe del Mar Cantabrico</span><span class="add-price">€ 5,00</span></div>
+        <div class="add-row"><span class="add-name">Mozzarella senza lattosio</span><span class="add-price">€ 1,50</span></div>
+        <div class="add-row"><span class="add-name">Altre aggiunte</span><span class="add-price">€ 2,00</span></div>
+        <div class="add-row"><span class="add-name">Impasto alternativo (integrale, pinsa…)</span><span class="add-price">+ € 2,00</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     4. PIZZE SENZA GLUTINE
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-ivory" id="senzaglutine">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.4label"></p>
+    <h2><span data-i18n="ms.4h2">Pizze</span> <em data-i18n="ms.4em">Senza Glutine</em></h2>
+    <p class="section-lead" data-i18n="ms.4lead">Non un ripensamento — una scelta curata dedicata a chi ha intolleranze celiache. Stesso gusto, stessa cura.</p>
+
+    <div class="info-box" style="margin-bottom:2rem">
+      <p data-i18n-html="ms.4info"><strong>Impasto SCHAR</strong> · farina di riso, amido di patate, farina di semi di carrube · naturalmente senza lattosio. Il prezzo è già comprensivo dell'impasto senza glutine.</p>
+    </div>
+
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Margherita</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Campagna</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, prosciutto cotto, champignons</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Lombarda</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Pomodoro, burrata pugliese, funghi porcini, melanzane al forno, salamino piccante</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Pusteria</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, Asiago, Monte Veronese, speck, salamino piccante</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Zuccona</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,50</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, speck, zucchine grigliate</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Ortolana</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, zucchine e melanzane grigliate, radicchio, pomodorini</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Capricciosa</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, prosciutto cotto, champignons, carciofi, olive nere greche</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Bufalina</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,50</span></div>
+        <p class="mitem-desc">Pomodoro, bufala campana, pomodorini, basilico</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">Parma</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, champignons, Grana, prosciutto crudo di Soave</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Gustosa</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,50</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, salsiccia dolce, salamino piccante, provola affumicata</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Taggia</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Mozzarella, pomodorini, Asiago, tonno, olive nere greche, basilico</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Nostrana</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Pomodoro, mozzarella, radicchio, gorgonzola dolce, pancetta affumicata</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     5. CUCINA
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-cream" id="cucina">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.5label"></p>
+    <h2><span data-i18n="ms.5h2">La nostra</span> <em data-i18n="ms.5em">Cucina</em></h2>
+    <p class="section-lead" data-i18n="ms.5lead">Tutto preparato in casa, ogni giorno. Dalle materie prime alla tavola, senza compromessi.</p>
+    <span class="note-cucina" data-i18n="ms.5note">Cucina aperta Mer–Dom · 12:00–14:00 e 19:00–22:00</span>
+
+    <!-- Antipasti -->
+    <div class="sub-section">
+      <div class="sub-label" data-i18n="ms.5ant">Antipasti</div>
+      <div class="items-grid">
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Tagliere di salumi e formaggi</span><span class="mitem-dots"></span><span class="mitem-price">€ 16,00</span></div>
+          <p class="mitem-desc">Con gnocco fritto e giardiniera</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Prosciutto Crudo di Soave con burratina pugliese</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Amalfi</span><span class="mitem-dots"></span><span class="mitem-price">€ 17,00</span></div>
+          <p class="mitem-desc">Salmone, pesce spada e tonno affumicati con crostini al burro, gamberetti in salsa rosa</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Primi -->
+    <div class="sub-section">
+      <div class="sub-label" data-i18n="ms.5pri">Primi Piatti</div>
+      <div class="items-grid">
+        <div class="mitem special">
+          <div class="mitem-row"><span class="mitem-name">Spaghetti allo Scoglio</span><span class="mitem-dots"></span><span class="mitem-price">€ 18,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Spaghetti della casa</span><span class="mitem-dots"></span><span class="mitem-price">€ 16,00</span></div>
+          <p class="mitem-desc">Aglio, olio, peperoncino, vongole e pomodorini</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Fusilli della casa</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+          <p class="mitem-desc">Con salmone affumicato, pomodorini e rucola</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Bigoli della casa all'anatra</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Maccheroncini della casa</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+          <p class="mitem-desc">Con salsiccia, zucchine e Philadelphia</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Fettuccine della casa all'ortolana piccante</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondi -->
+    <div class="sub-section">
+      <div class="sub-label" data-i18n="ms.5sec">Secondi Piatti</div>
+      <div class="items-grid">
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Frittura mista di pesce</span><span class="mitem-dots"></span><span class="mitem-price">€ 19,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Branzino alla griglia</span><span class="mitem-dots"></span><span class="mitem-price">€ 18,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Tagliata di manzo con rucola e Grana a scaglie</span><span class="mitem-dots"></span><span class="mitem-price">€ 20,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem special">
+          <div class="mitem-row"><span class="mitem-name">Costata d'Angus alla griglia</span><span class="mitem-dots"></span><span class="mitem-price">€ 21,00</span></div>
+          <p class="mitem-desc">Circa 500g</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Cotoletta di pollo con patatine fritte</span><span class="mitem-dots"></span><span class="mitem-price">€ 15,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Menu Baby -->
+    <div class="sub-section">
+      <div class="sub-label" data-i18n="ms.5baby">Menù Baby</div>
+      <div class="items-grid">
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Pasta al pomodoro</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Pasta al ragù</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Cotoletta con patatine fritte</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Hamburger di manzo con patatine</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+          <p class="mitem-desc">Alla griglia</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Wurstel alla griglia con patatine</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+      </div>
+      <div class="info-box" style="margin-top:2rem">
+        <p data-i18n-html="ms.5res"><strong>Su prenotazione:</strong> Paella e Sangria — <strong>€ 28,00 a persona</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     6. INSALATONE & CONTORNI
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-ivory" id="insalate">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.6label"></p>
+    <h2><span data-i18n="ms.6h2">Insalatone</span> <em data-i18n="ms.6em">&amp; Contorni</em></h2>
+    <p class="section-lead" data-i18n="ms.6lead">Fresche, abbondanti, pensate come piatto unico — o come accompagnamento perfetto.</p>
+
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">ARES</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Insalata verde, peperoni, carote, prosciutto cotto, maionese, Asiago</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">EFESTO</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc">Insalata verde, pomodorini, valeriana, carote, straccetti di pollo grigliati</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">DELI</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Insalata verde, mozzarella, champignons, pomodorini, olive, tonno</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">PORTO</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+        <p class="mitem-desc">Insalata verde, mozzarella, code di mazzancolla, pomodorini, rucola</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">OLIMPO</span><span class="mitem-dots"></span><span class="mitem-price">€ 11,00</span></div>
+        <p class="mitem-desc">Insalata verde, pomodori, radicchio, carote, rucola, tonno, bufala campana, mais</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">APOLLO</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Radicchio, mais, rucola, olive nere, cialda di Grana, carote, glassa all'aceto balsamico</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">GIOVE</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Insalata verde, valeriana, carciofi, champignons, Grana a scaglie, olive</p>
+      </div>
+      <div class="mitem special">
+        <div class="mitem-row"><span class="mitem-name">DEMETRA</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+        <p class="mitem-desc">Insalata verde, valeriana, salmone affumicato, zucchine e melanzane grigliate, ricotta</p>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-label" data-i18n="ms.6cont">Contorni</div>
+      <div class="items-grid">
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Patate fritte</span><span class="mitem-dots"></span><span class="mitem-price">€ 4,50</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Patate bollite</span><span class="mitem-dots"></span><span class="mitem-price">€ 4,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Verdura alla griglia</span><span class="mitem-dots"></span><span class="mitem-price">€ 5,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Verdura cotta di stagione</span><span class="mitem-dots"></span><span class="mitem-price">€ 4,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     7. DOLCI & BIBITE
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-amber" id="dolci">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.7label"></p>
+    <h2><span data-i18n="ms.7h2">Dolci, Bibite</span> <em data-i18n="ms.7em">&amp; Caffetteria</em></h2>
+    <p class="section-lead" data-i18n="ms.7lead">Il tocco finale — i nostri dolci fatti in casa ogni giorno, accompagnati da birre artigianali e caffetteria.</p>
+
+    <div class="sub-section" style="margin-top:0">
+      <div class="sub-label" data-i18n="ms.7dolci">Dolci</div>
+      <div class="items-grid">
+        <div class="mitem special">
+          <div class="mitem-row"><span class="mitem-name">Dolci fatti in casa</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,00</span></div>
+          <p class="mitem-desc">Chiedere al personale di sala per le proposte del giorno</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Tartufo bianco o nero</span><span class="mitem-dots"></span><span class="mitem-price">€ 3,80</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Tartufo affogato al caffè</span><span class="mitem-dots"></span><span class="mitem-price">€ 5,20</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Tartufo affogato al whiskey</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,50</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Gelato a pallina</span><span class="mitem-dots"></span><span class="mitem-price">€ 2,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Sorbetto al limone</span><span class="mitem-dots"></span><span class="mitem-price">€ 2,50</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-label" data-i18n="ms.7bib">Bibite &amp; Birre</div>
+      <div class="items-grid">
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Acqua minerale cl.0,75</span><span class="mitem-dots"></span><span class="mitem-price">€ 2,50</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Bibite in lattina</span><span class="mitem-dots"></span><span class="mitem-price">€ 3,00</span></div>
+          <p class="mitem-desc"></p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Birra alla spina (bionda, rossa, non filtrata)</span><span class="mitem-dots"></span><span class="mitem-price">€ 3,00 / 5,50</span></div>
+          <p class="mitem-desc">cl.0,20 / cl.0,40</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Birra in bottiglia</span><span class="mitem-dots"></span><span class="mitem-price">€ 3,50 / 5,50</span></div>
+          <p class="mitem-desc">cl.0,33 / cl.0,50</p>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Coca Cola alla spina</span><span class="mitem-dots"></span><span class="mitem-price">€ 2,50 / 4,50</span></div>
+          <p class="mitem-desc">cl.0,20 / cl.0,40</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <div class="sub-label" data-i18n="ms.7caff">Caffetteria &amp; Digestivi</div>
+      <div class="items-grid">
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Caffè</span><span class="mitem-dots"></span><span class="mitem-price">€ 1,50</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Caffè corretto</span><span class="mitem-dots"></span><span class="mitem-price">€ 2,00</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Macchiatone</span><span class="mitem-dots"></span><span class="mitem-price">€ 1,80</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Cappuccino</span><span class="mitem-dots"></span><span class="mitem-price">€ 2,00</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Caffè shakerato</span><span class="mitem-dots"></span><span class="mitem-price">€ 3,00</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Decaffeinato / Decaffeinato corretto / D'orzo / Ginseng</span><span class="mitem-dots"></span><span class="mitem-price">€ 1,80–2,30</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Grappe</span><span class="mitem-dots"></span><span class="mitem-price">da € 4,00</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Amari</span><span class="mitem-dots"></span><span class="mitem-price">€ 4,00</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Whiskey</span><span class="mitem-dots"></span><span class="mitem-price">da € 6,00</span></div>
+        </div>
+        <div class="mitem">
+          <div class="mitem-row"><span class="mitem-name">Cognac / Brandy / Rhum</span><span class="mitem-dots"></span><span class="mitem-price">da € 5,00</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     8. CARTA DEI VINI
+     ═══════════════════════════════════════ -->
+<section class="menu-section bg-dark" id="vini">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="ms.8label"></p>
+    <h2><span data-i18n="ms.8h2">Vini del</span> <em style="color:var(--amber)" data-i18n="ms.8em">Territorio</em></h2>
+    <p class="section-lead" data-i18n="ms.8lead">Una selezione curata di vini veneti — Soave, Valpolicella, Amarone — e spumanti locali per accompagnare ogni pasto.</p>
+
+    <div class="wine-cat-head">
+      <div class="wine-cat-line"></div>
+      <div class="wine-cat-label" data-i18n="ms.8sp">Spumanti</div>
+      <div class="wine-cat-line"></div>
+    </div>
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Lessini Durello</span><span class="mitem-dots"></span><span class="mitem-price">€ 22,00</span></div>
+        <p class="mitem-desc">Cantina di Soave / Gambellara</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Prosecco di Valdobbiadene</span><span class="mitem-dots"></span><span class="mitem-price">€ 20,00</span></div>
+        <p class="mitem-desc">La Pria / Cantina di Soave</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Prosecco millesimato</span><span class="mitem-dots"></span><span class="mitem-price">€ 18,00</span></div>
+        <p class="mitem-desc">Sala</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Recioto di Gambellara</span><span class="mitem-dots"></span><span class="mitem-price">€ 22,00</span></div>
+        <p class="mitem-desc">Cantina di Gambellara</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Moscato dolce</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+        <p class="mitem-desc"></p>
+      </div>
+    </div>
+
+    <div class="wine-cat-head">
+      <div class="wine-cat-line"></div>
+      <div class="wine-cat-label" data-i18n="ms.8bi">Vini Bianchi</div>
+      <div class="wine-cat-line"></div>
+    </div>
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Soave classico</span><span class="mitem-dots"></span><span class="mitem-price">€ 17,00</span></div>
+        <p class="mitem-desc">Coffele · Ca'Rugate · Rocca Sveva · Monte Tondo · Nardello</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Soave classico cl.0,375</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Ca'Rugate</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Vermentino di Gallura Costamolino</span><span class="mitem-dots"></span><span class="mitem-price">€ 22,00</span></div>
+        <p class="mitem-desc">Argiolas</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Lugana</span><span class="mitem-dots"></span><span class="mitem-price">€ 25,00</span></div>
+        <p class="mitem-desc">Ca' dei Frati</p>
+      </div>
+    </div>
+
+    <div class="wine-cat-head">
+      <div class="wine-cat-line"></div>
+      <div class="wine-cat-label" data-i18n="ms.8ro">Vini Rossi</div>
+      <div class="wine-cat-line"></div>
+    </div>
+    <div class="items-grid">
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Valpolicella DOC</span><span class="mitem-dots"></span><span class="mitem-price">€ 22,00</span></div>
+        <p class="mitem-desc">Ca'Rugate</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Valpolicella DOC cl.0,375</span><span class="mitem-dots"></span><span class="mitem-price">€ 10,00</span></div>
+        <p class="mitem-desc">Ca'Rugate</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Valpolicella Superiore</span><span class="mitem-dots"></span><span class="mitem-price">€ 24,00</span></div>
+        <p class="mitem-desc">Villa Crine · Monte Tondo</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Valpolicella Ripasso</span><span class="mitem-dots"></span><span class="mitem-price">€ 26,00</span></div>
+        <p class="mitem-desc">Rocca Sveva</p>
+      </div>
+      <div class="mitem">
+        <div class="mitem-row"><span class="mitem-name">Amarone · Corte Giara</span><span class="mitem-dots"></span><span class="mitem-price">€ 38,00</span></div>
+        <p class="mitem-desc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NOTE IMPORTANTI ═══ -->
+<section class="menu-section bg-cream" style="padding-top:3rem;padding-bottom:4rem">
+  <div class="section-inner">
+    <div class="ornament">
+      <div class="orn-line"></div>
+      <div class="orn-icon">✦ ✦ ✦</div>
+      <div class="orn-line"></div>
+    </div>
+    <div class="allergen-box" style="margin-top:2rem">
+      <div>
+        <p data-i18n-html="note.allerg"><strong>Allergeni</strong> — I nostri alimenti potrebbero contenere allergeni. Si prega di informare il personale di eventuali allergie o intolleranze alimentari prima di ordinare. Siamo felici di adattare la vostra esperienza.</p>
+        <p style="margin-top:.6rem" data-i18n-html="note.orari"><strong>Orari cucina</strong> — 12:00–14:00 e 19:00–22:00 · La cucina potrebbe chiudersi prima a discrezione del personale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-map">
+    <div style="width:100%;height:100%;background:linear-gradient(160deg,#0C0804 0%,#180E04 60%,#221204 100%)"></div>
+    <div class="footer-map-vignette"></div>
+  </div>
+  <div class="footer-body">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="logo_cds_black.svg" alt="Corte del Sole" class="footer-logo-img">
+        <p>Ristorante Pizzeria · Costeggiola (VR)</p>
+        <p>Via Costeggiola 38 · 045 767 5369</p>
+        <p class="tagline" data-i18n="ft.tagline">Dal 2002, una cucina che rispetta gli ingredienti e onora la tradizione. Nel cuore del Soave.</p>
+      </div>
+      <div class="f-col">
+        <h4 data-i18n="fm.col">Il Menu</h4>
+        <ul>
+          <li><a href="#classiche">Pizze Classiche</a></li>
+          <li><a href="#nostre">Le Nostre Pizze</a></li>
+          <li><a href="#bianche">Pizze Bianche</a></li>
+          <li><a href="#senzaglutine">Senza Glutine</a></li>
+          <li><a href="#cucina">Cucina</a></li>
+          <li><a href="#insalate">Insalate &amp; Contorni</a></li>
+          <li><a href="#dolci">Dolci &amp; Bibite</a></li>
+          <li><a href="#vini">Carta dei Vini</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4 data-i18n="fm.cont">Contatti</h4>
+        <div class="social-list">
+          <a href="tel:3356504223" class="soc-item"><div class="soc-dot"></div> 335 650 4223</a>
+          <a href="tel:0457675369" class="soc-item"><div class="soc-dot"></div> 045 767 5369</a>
+          <a href="https://wa.me/393356504223" target="_blank" class="soc-item"><div class="soc-dot"></div> WhatsApp</a>
+          <a href="mailto:cortedelsole@yahoo.it" class="soc-item"><div class="soc-dot"></div> cortedelsole@yahoo.it</a>
+          <a href="https://www.facebook.com/pizzeriacortedelsole/" target="_blank" class="soc-item"><div class="soc-dot"></div> Facebook</a>
+          <a href="index.html" class="soc-item"><div class="soc-dot"></div><span data-i18n="fm.home"> Torna alla Home</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="ft.copy">© 2026 Ristorante Pizzeria Corte del Sole · Via Costeggiola 38, Costeggiola (VR)</span>
+      <span style="opacity:.3;font-size:.72rem" data-i18n="ft.love">Con ♥ nel Soave</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FAB -->
+<div class="fab-group" id="fabGroup">
+  <button class="fab fab-top" id="fabTop" aria-label="Torna in cima">↑</button>
+  <a class="fab fab-wa" href="https://wa.me/393356504223" target="_blank" rel="noopener" aria-label="WhatsApp" style="font-size:.65rem;font-weight:700;letter-spacing:.04em;color:#fff">WA</a>
+</div>
+
+<script>
+/* ── PROGRESS BAR ── */
+const prog = document.getElementById('prog');
+
+/* ── NAV SCROLL ── */
+const navbar = document.getElementById('navbar');
+const fabGroup = document.getElementById('fabGroup');
+const menuNav = document.getElementById('menuNav');
+
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  navbar.classList.toggle('scrolled', y > 60);
+  prog.style.width = (y / total * 100) + '%';
+  fabGroup.classList.toggle('show', y > 400);
+  /* aggiorna top del menu-nav in base all'altezza attuale della nav */
+  menuNav.style.top = navbar.offsetHeight + 'px';
+}, { passive: true });
+
+/* posizione iniziale */
+menuNav.style.top = navbar.offsetHeight + 30 + 'px';
+
+/* ── HAMBURGER ── */
+const hbg = document.getElementById('hamburger');
+const nav = document.getElementById('navlinks');
+hbg.addEventListener('click', () => {
+  hbg.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+});
+nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  hbg.classList.remove('open');
+  nav.classList.remove('open');
+  document.body.style.overflow = '';
+}));
+
+/* ── FAB TOP ── */
+document.getElementById('fabTop').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ── SMOOTH SCROLL TAB CON OFFSET ── */
+document.querySelectorAll('.mnav-tab').forEach(tab => {
+  tab.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(tab.getAttribute('href'));
+    if (!target) return;
+    const offset = navbar.offsetHeight + menuNav.offsetHeight + 16;
+    window.scrollTo({ top: target.offsetTop - offset, behavior: 'smooth' });
+  });
+});
+
+/* ── ACTIVE TAB su scroll ── */
+const sections = document.querySelectorAll('.menu-section[id]');
+const tabs = document.querySelectorAll('.mnav-tab');
+
+const secObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = '#' + entry.target.getAttribute('id');
+      tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === id));
+      /* scroll tab in vista */
+      const activeTab = document.querySelector('.mnav-tab.active');
+      if (activeTab) activeTab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+  });
+}, { rootMargin: '-30% 0px -65% 0px' });
+
+sections.forEach(s => secObs.observe(s));
+</script>
+<script src="lang.js"></script>
+</body>
+</html>
