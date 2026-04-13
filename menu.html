@@ -284,6 +284,12 @@ h2 em { font-style: italic; color: var(--terracotta); }
   color: var(--amber); font-weight: 600; white-space: nowrap;
 }
 
+/* Nota senza glutine */
+.gluten-note {
+  font-size: .8rem; color: var(--text-muted);
+  font-style: italic; margin-top: 2.5rem; line-height: 1.6;
+}
+
 /* Note cucina */
 .note-cucina {
   display: inline-flex; align-items: center; gap: .5rem;
@@ -444,7 +450,6 @@ footer { background: var(--soil); color: rgba(255,255,255,.42); }
   <div class="section-inner">
     <p class="section-label" data-i18n="ms.1label"></p>
     <h2><span data-i18n="ms.1h2">Pizze</span> <em data-i18n="ms.1em">Classiche</em></h2>
-    <p class="section-lead" data-i18n="ms.1lead">Le basi della nostra arte bianca — impasto napoletano a 48 ore di maturazione, ingredienti selezionati con cura.</p>
     <div class="items-grid">
       <div class="mitem">
         <div class="mitem-row"><span class="mitem-name">Margherita</span><span class="mitem-dots"></span><span class="mitem-price">€ 5,80</span></div>
@@ -836,15 +841,15 @@ footer { background: var(--soil); color: rgba(255,255,255,.42); }
       <div class="sub-label" data-i18n="ms.5ant">Antipasti</div>
       <div class="items-grid">
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Tagliere di salumi e formaggi</span><span class="mitem-dots"></span><span class="mitem-price">€ 16,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Tagliere di salumi e formaggi *</span><span class="mitem-dots"></span><span class="mitem-price">€ 16,00</span></div>
           <p class="mitem-desc">Con gnocco fritto e giardiniera</p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Prosciutto Crudo di Soave con burratina pugliese</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Prosciutto Crudo di Soave con burratina pugliese *</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Amalfi</span><span class="mitem-dots"></span><span class="mitem-price">€ 17,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Amalfi *</span><span class="mitem-dots"></span><span class="mitem-price">€ 17,00</span></div>
           <p class="mitem-desc">Salmone, pesce spada e tonno affumicati con crostini al burro, gamberetti in salsa rosa</p>
         </div>
       </div>
@@ -855,27 +860,27 @@ footer { background: var(--soil); color: rgba(255,255,255,.42); }
       <div class="sub-label" data-i18n="ms.5pri">Primi Piatti</div>
       <div class="items-grid">
         <div class="mitem special">
-          <div class="mitem-row"><span class="mitem-name">Spaghetti allo Scoglio</span><span class="mitem-dots"></span><span class="mitem-price">€ 18,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Spaghetti allo Scoglio *</span><span class="mitem-dots"></span><span class="mitem-price">€ 18,00</span></div>
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Spaghetti della casa</span><span class="mitem-dots"></span><span class="mitem-price">€ 16,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Spaghetti della casa *</span><span class="mitem-dots"></span><span class="mitem-price">€ 16,00</span></div>
           <p class="mitem-desc">Aglio, olio, peperoncino, vongole e pomodorini</p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Fusilli della casa</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Fusilli della casa *</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
           <p class="mitem-desc">Con salmone affumicato, pomodorini e rucola</p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Bigoli della casa all'anatra</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Bigoli della casa all'anatra *</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Maccheroncini della casa</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Maccheroncini della casa *</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
           <p class="mitem-desc">Con salsiccia, zucchine e Philadelphia</p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Fettuccine della casa all'ortolana piccante</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Fettuccine della casa all'ortolana piccante *</span><span class="mitem-dots"></span><span class="mitem-price">€ 12,00</span></div>
           <p class="mitem-desc"></p>
         </div>
       </div>
@@ -890,15 +895,15 @@ footer { background: var(--soil); color: rgba(255,255,255,.42); }
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Branzino alla griglia</span><span class="mitem-dots"></span><span class="mitem-price">€ 18,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Branzino alla griglia *</span><span class="mitem-dots"></span><span class="mitem-price">€ 18,00</span></div>
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Tagliata di manzo con rucola e Grana a scaglie</span><span class="mitem-dots"></span><span class="mitem-price">€ 20,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Tagliata di manzo con rucola e Grana a scaglie *</span><span class="mitem-dots"></span><span class="mitem-price">€ 20,00</span></div>
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem special">
-          <div class="mitem-row"><span class="mitem-name">Costata d'Angus alla griglia</span><span class="mitem-dots"></span><span class="mitem-price">€ 21,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Costata d'Angus alla griglia *</span><span class="mitem-dots"></span><span class="mitem-price">€ 21,00</span></div>
           <p class="mitem-desc">Circa 500g</p>
         </div>
         <div class="mitem">
@@ -913,11 +918,11 @@ footer { background: var(--soil); color: rgba(255,255,255,.42); }
       <div class="sub-label" data-i18n="ms.5baby">Menù Baby</div>
       <div class="items-grid">
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Pasta al pomodoro</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Pasta al pomodoro *</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,00</span></div>
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Pasta al ragù</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Pasta al ragù *</span><span class="mitem-dots"></span><span class="mitem-price">€ 6,00</span></div>
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
@@ -925,18 +930,21 @@ footer { background: var(--soil); color: rgba(255,255,255,.42); }
           <p class="mitem-desc"></p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Hamburger di manzo con patatine</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Hamburger di manzo con patatine *</span><span class="mitem-dots"></span><span class="mitem-price">€ 14,00</span></div>
           <p class="mitem-desc">Alla griglia</p>
         </div>
         <div class="mitem">
-          <div class="mitem-row"><span class="mitem-name">Wurstel alla griglia con patatine</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,00</span></div>
+          <div class="mitem-row"><span class="mitem-name">Wurstel alla griglia con patatine *</span><span class="mitem-dots"></span><span class="mitem-price">€ 7,00</span></div>
           <p class="mitem-desc"></p>
         </div>
       </div>
       <div class="info-box" style="margin-top:2rem">
-        <p data-i18n-html="ms.5res"><strong>Su prenotazione:</strong> Paella e Sangria — <strong>€ 28,00 a persona</strong></p>
+        <p data-i18n-html="ms.5res"><strong>Su prenotazione:</strong> Paella e Sangria * — <strong>€ 28,00 a persona</strong></p>
       </div>
     </div>
+
+    <p class="gluten-note">* Su richiesta, disponibile anche senza glutine con qualche variazione</p>
+
   </div>
 </section>
 
